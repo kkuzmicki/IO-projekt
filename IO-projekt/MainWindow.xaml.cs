@@ -23,6 +23,12 @@ namespace IO_projekt
         public MainWindow()
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+        }
+
+        private void loginB_click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
