@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IO_projekt"
         mc:Ignorable="d"
-        Title="Logowanie" Height="183.382" Width="240.86" ResizeMode="CanMinimize">
+        Title="Logowanieee" Height="183.382" Width="240.86" ResizeMode="CanMinimize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40"/>
@@ -27,7 +27,8 @@
         <TextBox Grid.Column="2" Grid.Row="2"/>
         <TextBlock Grid.Column="1" Grid.Row="3" TextAlignment="Center" Text="Hasło:"/>
         <TextBox Grid.Column="2" Grid.Row="3"/>
-        <Button Grid.Column="1" Grid.Row="4" Content="Zaloguj" Grid.ColumnSpan="2" Margin="10"/>
+        <Button Grid.Column="1" Grid.Row="4" Content="Zaloguj" Grid.ColumnSpan="2" Margin="10">
+        </Button>
 
     </Grid>
 </Window>
