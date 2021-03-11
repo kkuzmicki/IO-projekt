@@ -5,29 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IO_projekt"
         mc:Ignorable="d"
-        Title="Logowanie" Height="183.382" Width="240.86" ResizeMode="CanMinimize">
+        Title="Logowanie" Height="175" Width="240" ResizeMode="CanMinimize" FontFamily="Segoe UI">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="40"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="10"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Column="1" Grid.Row="1" TextAlignment="Center" Text="Dzień dobry!" Grid.ColumnSpan="2" FontSize="22"/>
-        <TextBlock Grid.Column="1" Grid.Row="2" TextAlignment="Center" Text="Login:"/>
-        <TextBox Grid.Column="2" Grid.Row="2"/>
-        <TextBlock Grid.Column="1" Grid.Row="3" TextAlignment="Center" Text="Hasło:"/>
-        <TextBox Grid.Column="2" Grid.Row="3"/>
-        <Button Grid.Column="1" Grid.Row="4" Content="Zaloguj" Grid.ColumnSpan="2" Margin="10"/>
+        <TextBlock Grid.Column="1" Grid.Row="1" TextAlignment="Center" Text="Dzień dobry!" Grid.ColumnSpan="3" FontSize="22" FontFamily="Segoe UI" Margin="0, 0, 0, 5" FontWeight="DemiBold"/>
+        <TextBlock Grid.Column="1" Grid.Row="2" TextAlignment="Center" Text="Login:" Margin="0,3,0,3" Width="65"/>
+        <TextBox Grid.Column="2" Grid.Row="2" Margin="0,3,0,3" Width="65"/>
+        <TextBlock Grid.Column="1" Grid.Row="3" TextAlignment="Center" Text="Hasło:" Margin="0,3,0,3"/>
+        <TextBox Grid.Column="2" Grid.Row="3" Margin="0,3,0,3"/>
+        <Button x:Name="submitB" Grid.Column="1" Grid.Row="4" Content="Zaloguj" Grid.ColumnSpan="3" Margin="10" Click="submitB_Click"/>
 
     </Grid>
 </Window>

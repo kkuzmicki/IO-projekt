@@ -24,5 +24,10 @@ namespace IO_projekt
         {
             InitializeComponent();
         }
+
+        private void submitB_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
