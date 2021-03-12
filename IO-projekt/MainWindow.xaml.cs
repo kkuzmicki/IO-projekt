@@ -50,12 +50,9 @@ namespace IO_projekt
 
         private void loginB_click(object sender, RoutedEventArgs e)
         {
-            
-        }
-
-        private void submitB_Click(object sender, RoutedEventArgs e)
-        {
-
+            SecondWindow objSecondWindow = new SecondWindow();
+            this.Visibility = Visibility.Hidden;
+            objSecondWindow.Show();
         }
     }
 }
