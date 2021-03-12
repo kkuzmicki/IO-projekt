@@ -1,6 +1,7 @@
 ﻿using FirebirdSql.Data.FirebirdClient;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,7 +46,15 @@ namespace IO_projekt
             db.Open();
 
             //String test2 = db.Query<String>("select name from test").Single();
-
+            var transaction = db.BeginTransaction();
+            var command = new FbCommand("select * from TEST", db, transaction);
+            var reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                var values = new object[reader.FieldCount];
+                reader.GetValues(values);
+                Trace.WriteLine(string.Join("|", values));
+            }
         }
 
         private void loginB_click(object sender, RoutedEventArgs e)
