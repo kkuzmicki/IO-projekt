@@ -44,8 +44,10 @@ namespace IO_projekt
 
             db = new FbConnection(csb.ToString());
             db.Open();
+        }
 
-            //String test2 = db.Query<String>("select name from test").Single();
+        private void loginB_click(object sender, RoutedEventArgs e)
+        {
             var transaction = db.BeginTransaction();
             var command = new FbCommand("select * from TEST", db, transaction);
             var reader = command.ExecuteReader();
@@ -55,10 +57,6 @@ namespace IO_projekt
                 reader.GetValues(values);
                 Trace.WriteLine(string.Join("|", values));
             }
-        }
-
-        private void loginB_click(object sender, RoutedEventArgs e)
-        {
             
         }
     }
