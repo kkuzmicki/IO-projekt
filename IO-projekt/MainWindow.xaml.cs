@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FirebirdSql.Data.FirebirdClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,36 @@ namespace IO_projekt
     /// </summary>
     public partial class MainWindow : Window
     {
+        int hour;
+        FbConnection db;
         public MainWindow()
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            hour = DateTime.Now.Hour;
+            if (hour >= 18 || hour <= 6)
+            {
+                welcomeL.Text = "Dobry wieczór!";
+            }
+
+            FbConnectionStringBuilder csb = new FbConnectionStringBuilder();
+            csb.DataSource = "localhost";
+            csb.Port = 3050;
+            csb.Database = @"C:\bazy\IO.FDB";
+            csb.UserID = "SYSDBA";
+            csb.Password = "masterkey";
+            csb.ServerType = FbServerType.Default;
+
+            db = new FbConnection(csb.ToString());
+            db.Open();
+
+            //String test2 = db.Query<String>("select name from test").Single();
+
+        }
+
+        private void loginB_click(object sender, RoutedEventArgs e)
+        {
+            
         }
 
         private void submitB_Click(object sender, RoutedEventArgs e)
