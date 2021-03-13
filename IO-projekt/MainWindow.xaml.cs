@@ -44,8 +44,10 @@ namespace IO_projekt
 
             db = new FbConnection(csb.ToString());
             db.Open();
+        }
 
-            //String test2 = db.Query<String>("select name from test").Single();
+        private void loginB_click(object sender, RoutedEventArgs e)
+        {
             var transaction = db.BeginTransaction();
             var command = new FbCommand("select * from TEST", db, transaction);
             var reader = command.ExecuteReader();
@@ -63,5 +65,14 @@ namespace IO_projekt
             this.Visibility = Visibility.Hidden;
             objSecondWindow.Show();
         }
-    }
+        var transaction = db.BeginTransaction();
+        var command = new FbCommand("select * from TEST", db, transaction);
+        var reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                var values = new object[reader.FieldCount];
+        reader.GetValues(values);
+                Trace.WriteLine(string.Join("|", values));
+            }
+}
 }
