@@ -24,14 +24,27 @@ namespace IO_projekt
             InitializeComponent();
         }
 
-        private void menuBooks_Click(object sender, RoutedEventArgs e)
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            Main.Content = new Books();
+
         }
 
-        private void menuReaders_Click(object sender, RoutedEventArgs e)
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-            Main.Content = new Readers();
+
         }
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void btnBook_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void btnReturn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }
 }

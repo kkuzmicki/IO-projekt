@@ -6,39 +6,24 @@
         xmlns:local="clr-namespace:IO_projekt"
         mc:Ignorable="d"
         Title="SecondWindow" Height="500" Width="500">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="20"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="20"/>
-        </Grid.RowDefinitions>
-        <DockPanel Grid.Column="1" Grid.Row="0">
-            <Menu DockPanel.Dock="Top">
-                <MenuItem Header="_Opcje">
-                    <MenuItem Header="_Wypożycz książkę"/>
-                    <MenuItem Header="_Zwróć książkę"/>
-                    <Separator/>
-                    <MenuItem Header="Lista _książek" Click="menuBooks_Click"/>
-                    <MenuItem Header="Lista _czytelników" Click="menuReaders_Click"/>
-                    <MenuItem Header="Lista _pracowników"/>
-                    <Separator/>
-                    <MenuItem Header="W_yloguj">
-                        <MenuItem.Icon>
-                            <Image Source="https://www.shareicon.net/data/256x256/2016/12/12/862833_close_512x512.png" Width="20" Height="20"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                </MenuItem>
-            </Menu>
-            <TextBox AcceptsReturn="True"/>
-        </DockPanel>
-        <Frame x:Name="Main" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" />
-    </Grid>
+    <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto">
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+            <Button Name="btnAdd" Click="btnAdd_Click" Margin="5">Dodaj</Button>
+            <Button Name="btnEdit" Click="btnEdit_Click" Margin="5">Edytuj</Button>
+            <Button Name="btnDelete" Click="btnDelete_Click" Margin="5">Usuń</Button>
+            <Button Name="btnBook" Click="btnBook_Click" Margin="5">Zarezerwuj</Button>
+            <Button Name="btnReturn" Click="btnReturn_Click" Margin="5">Zwróć</Button>
+        </StackPanel>
+        <TabControl>
+            <TabItem Header="Lista książek">
+                <Label>TU BEDĄ KSIĄŻKI</Label>
+            </TabItem>
+            <TabItem Header="Lista czytelników">
+                <Label>TU BEDĄ CZYTELNICY</Label>
+            </TabItem>
+            <TabItem Header="Lista pracowników">
+                <Label>TU BEDĄ PRACOWNICY</Label>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
 </Window>
