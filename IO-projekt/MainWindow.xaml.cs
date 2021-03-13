@@ -49,30 +49,17 @@ namespace IO_projekt
         private void loginB_click(object sender, RoutedEventArgs e)
         {
             var transaction = db.BeginTransaction();
-            var command = new FbCommand("select * from TEST", db, transaction);
-            var reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                var values = new object[reader.FieldCount];
-                reader.GetValues(values);
-                Trace.WriteLine(string.Join("|", values));
-            }
-        }
-
-        private void loginB_click(object sender, RoutedEventArgs e)
-        {
+            var command = new FbCommand("insert into TEST (ID_TEST, NAME) values (4, 'Kamil'", db, transaction);
+            //var reader = command.Execute();
+            //while (reader.Read())
+            //{
+            //    var values = new object[reader.FieldCount];
+            //    reader.GetValues(values);
+            //    Trace.WriteLine(string.Join("|", values));
+            //}
             SecondWindow objSecondWindow = new SecondWindow();
             this.Visibility = Visibility.Hidden;
             objSecondWindow.Show();
         }
-        var transaction = db.BeginTransaction();
-        var command = new FbCommand("select * from TEST", db, transaction);
-        var reader = command.ExecuteReader();
-            while (reader.Read())
-            {
-                var values = new object[reader.FieldCount];
-        reader.GetValues(values);
-                Trace.WriteLine(string.Join("|", values));
-            }
-}
+    }
 }

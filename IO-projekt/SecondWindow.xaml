@@ -39,6 +39,6 @@
             </Menu>
             <TextBox AcceptsReturn="True"/>
         </DockPanel>
-        <Frame x:Name="Main" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="Main" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" />
     </Grid>
 </Window>
