@@ -1,6 +1,8 @@
 ﻿using FirebirdSql.Data.FirebirdClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -23,7 +25,7 @@ namespace IO_projekt
     public partial class MainWindow : Window
     {
         int hour;
-        FbConnection db;
+        FbConnection connection;
         public MainWindow()
         {
             InitializeComponent();
@@ -42,24 +44,31 @@ namespace IO_projekt
             csb.Password = "masterkey";
             csb.ServerType = FbServerType.Default;
 
-            db = new FbConnection(csb.ToString());
-            db.Open();
+            connection = new FbConnection(csb.ToString());
+            connection.Open();
         }
 
         private void loginB_click(object sender, RoutedEventArgs e)
         {
-            var transaction = db.BeginTransaction();
-            var command = new FbCommand("insert into TEST (ID_TEST, NAME) values (4, 'Kamil'", db, transaction);
-            //var reader = command.Execute();
-            //while (reader.Read())
-            //{
-            //    var values = new object[reader.FieldCount];
-            //    reader.GetValues(values);
-            //    Trace.WriteLine(string.Join("|", values));
-            //}
-            SecondWindow objSecondWindow = new SecondWindow();
-            this.Visibility = Visibility.Hidden;
-            objSecondWindow.Show();
+            using (var transaction = connection.BeginTransaction())
+            {
+                using (var command = new FbCommand("select LOGIN, PASSWORD from USERS", connection, transaction))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            IDataRecord record = reader;
+                            if (loginTB.Text == (String)record[0] && passwordPB.Password == (String)record[1])
+                            {
+                                SecondWindow objSecondWindow = new SecondWindow();
+                                this.Close();
+                                objSecondWindow.Show();
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
