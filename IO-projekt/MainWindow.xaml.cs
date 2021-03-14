@@ -50,25 +50,35 @@ namespace IO_projekt
 
         private void loginB_click(object sender, RoutedEventArgs e)
         {
-            using (var transaction = connection.BeginTransaction())
+            //using (var transaction = connection.BeginTransaction())
+            //{
+            //    using (var command = new FbCommand("select LOGIN, PASSWORD from USERS", connection, transaction))
+            //    {
+            //        using (var reader = command.ExecuteReader())
+            //        {
+            //            while (reader.Read())
+            //            {
+            //                IDataRecord record = reader;
+            //                if (loginTB.Text == (String)record[0] && passwordPB.Password == (String)record[1])
+            //                {
+            //                    SecondWindow objSecondWindow = new SecondWindow();
+            //                    this.Close();
+            //                    objSecondWindow.Show();
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+
+            var command2 = new FbCommand("select COUNT(*) from USERS where LOGIN = '" + loginTB.Text + "' AND PASSWORD = '" + passwordPB.Password + "'", connection);
+            Int32 count = (Int32)command2.ExecuteScalar();
+            if(count > 0)
             {
-                using (var command = new FbCommand("select LOGIN, PASSWORD from USERS", connection, transaction))
-                {
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            IDataRecord record = reader;
-                            if (loginTB.Text == (String)record[0] && passwordPB.Password == (String)record[1])
-                            {
-                                SecondWindow objSecondWindow = new SecondWindow();
-                                this.Close();
-                                objSecondWindow.Show();
-                            }
-                        }
-                    }
-                }
+                SecondWindow objSecondWindow = new SecondWindow();
+                this.Close();
+                objSecondWindow.Show();
             }
+            Console.WriteLine(count);
         }
     }
 }
