@@ -77,7 +77,8 @@ namespace IO_projekt
                 SecondWindow objSecondWindow = new SecondWindow();
                 this.Close();
                 objSecondWindow.Show();
-            } else
+            } 
+            else
             {
                 errorTB.Text = "Błędne dane";
             }
