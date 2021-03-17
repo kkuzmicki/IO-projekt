@@ -73,7 +73,8 @@ namespace IO_projekt
         }
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-
+            DeleteBookWindow deleteWindow = new DeleteBookWindow();
+            deleteWindow.Show();
         }
         private void btnBook_Click(object sender, RoutedEventArgs e)
         {
