@@ -70,7 +70,7 @@ namespace IO_projekt
             //    }
             //}
 
-            var command2 = new FbCommand("select COUNT(*) from USERS where LOGIN = '" + loginTB.Text + "' AND PASSWORD = '" + passwordPB.Password + "'", connection);
+            var command2 = new FbCommand("select COUNT(*) from PRACOWNICY where LOGIN = '" + loginTB.Text + "' AND HASLO = '" + passwordPB.Password + "'", connection);
             Int32 count = (Int32)command2.ExecuteScalar();
             if(count > 0)
             {
