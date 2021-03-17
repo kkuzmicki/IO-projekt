@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IO_projekt"
         mc:Ignorable="d"
-        Title="Logowanie" Height="190" Width="200" ResizeMode="CanMinimize" FontFamily="Segoe UI">
+        Title="BibliotekOS" Height="190" Width="200" ResizeMode="CanMinimize" FontFamily="Segoe UI" Icon="logo.ico">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
@@ -23,7 +23,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="welcomeL" Grid.Column="1" Grid.Row="1" TextAlignment="Center" Text="Dzień Dobry!" Grid.ColumnSpan="2" FontSize="22" FontFamily="Segoe UI" Margin="0, 0, 0, 5" FontWeight="DemiBold"/>
+        <TextBlock x:Name="welcomeL" Grid.Column="1" Grid.Row="1" TextAlignment="Center" Text="Dzień dobry!" Grid.ColumnSpan="2" FontSize="22" FontFamily="Segoe UI" Margin="0, 0, 0, 5" FontWeight="DemiBold"/>
         <TextBlock Grid.Column="1" Grid.Row="2" TextAlignment="Center" Text="Login:" VerticalAlignment="Center" Margin="5,0" MinWidth="40" HorizontalAlignment="Center" />
         <TextBox x:Name="loginTB" Grid.Column="2" Grid.Row="2" Width="100" Height="18" HorizontalAlignment="Left" Margin="0,5,10,5"/>
         <TextBlock Grid.Column="1" Grid.Row="3" TextAlignment="Center" Text="Hasło:" VerticalAlignment="Center" Margin="5,0" MinWidth="40" HorizontalAlignment="Center" />

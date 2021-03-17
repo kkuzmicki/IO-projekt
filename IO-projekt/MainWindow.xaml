@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IO_projekt"
         mc:Ignorable="d"
-        Title="SecondWindow" Height="500" Width="500">
+        Title="BibliotekOS" Height="605" Width="1004">
     <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" VerticalAlignment="Center">
             <Button Name="btnAdd" Click="btnAdd_Click" Margin="5">Dodaj</Button>
@@ -25,10 +25,17 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <DataGrid x:Name="Books" AlternatingRowBackground="AliceBlue" CanUserAddRows="False">
-                        
+                    <DataGrid x:Name="Books" AlternatingRowBackground="AliceBlue" CanUserAddRows="False" SelectionMode="Single">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Tytuł" Binding="{Binding Path=TYTUL}" IsReadOnly="true"/>
+                            <DataGridTextColumn Header="Kategoria" Binding="{Binding Path=KATEGORIA}" IsReadOnly="true"/>
+                            <DataGridTextColumn Header="Autor" Binding="{Binding Path=AUTOR}" IsReadOnly="true"/>
+                            <DataGridTextColumn Header="Wydawnictwo" Binding="{Binding Path=WYDAWNICTWO}" IsReadOnly="true"/>
+                            <DataGridTextColumn Header="Rok wydania" Binding="{Binding Path=ROK_WYDANIA}" IsReadOnly="true"/>
+                            <DataGridTextColumn Header="Ilość" Binding="{Binding Path=ILOSC}" IsReadOnly="true"/>
+                        </DataGrid.Columns>
                     </DataGrid>
-                    
+
                 </Grid>
             </TabItem>
             <TabItem Header="Lista czytelników">
