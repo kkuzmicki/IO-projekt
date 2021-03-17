@@ -22,6 +22,7 @@ namespace IO_projekt
         public SecondWindow()
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)

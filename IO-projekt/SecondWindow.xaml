@@ -16,13 +16,52 @@
         </StackPanel>
         <TabControl>
             <TabItem Header="Lista książek">
-                <Label>TU BEDĄ KSIĄŻKI</Label>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <DataGrid x:Name="Books" AlternatingRowBackground="AliceBlue" CanUserAddRows="False">
+                        
+                    </DataGrid>
+                    
+                </Grid>
             </TabItem>
             <TabItem Header="Lista czytelników">
-                <Label>TU BEDĄ CZYTELNICY</Label>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <DataGrid x:Name="Readers" AlternatingRowBackground="AliceBlue" CanUserAddRows="False">
+
+                    </DataGrid>
+
+                </Grid>
             </TabItem>
             <TabItem Header="Lista pracowników">
-                <Label>TU BEDĄ PRACOWNICY</Label>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <DataGrid x:Name="Workers" AlternatingRowBackground="AliceBlue" CanUserAddRows="False">
+
+                    </DataGrid>
+
+                </Grid>
             </TabItem>
         </TabControl>
     </DockPanel>
