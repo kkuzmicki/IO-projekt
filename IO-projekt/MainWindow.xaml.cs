@@ -64,7 +64,9 @@ namespace IO_projekt
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-
+            this.IsEnabled = false;
+            BookAdd addWindow = new BookAdd();
+            addWindow.Show();
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
