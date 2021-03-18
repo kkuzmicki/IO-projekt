@@ -25,7 +25,7 @@ namespace IO_projekt
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             this.Activate();
             this.Focus();
-            this.Topmost = true;
+            //this.Topmost = true;
         }
     }
 }

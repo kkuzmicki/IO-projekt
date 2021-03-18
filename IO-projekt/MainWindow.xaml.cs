@@ -73,9 +73,9 @@ namespace IO_projekt
         }
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            this.IsEnabled = false;
+            //this.IsEnabled = false;
             DeleteBookWindow deleteWindow = new DeleteBookWindow();
-            deleteWindow.Show();
+            deleteWindow.ShowDialog();
         }
         private void btnBook_Click(object sender, RoutedEventArgs e)
         {
