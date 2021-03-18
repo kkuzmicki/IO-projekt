@@ -63,12 +63,19 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Book.cs" />
+    <Compile Include="BookAdd.xaml.cs">
+      <DependentUpon>BookAdd.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DeleteBookWindow.xaml.cs">
       <DependentUpon>DeleteBookWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="BookAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DeleteBookWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
