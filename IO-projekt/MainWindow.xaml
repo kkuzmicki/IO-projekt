@@ -70,6 +70,22 @@
 
                 </Grid>
             </TabItem>
+            <TabItem Header="Lista autorów">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <DataGrid x:Name="AuthorsDG" AlternatingRowBackground="AliceBlue" CanUserAddRows="False">
+
+                    </DataGrid>
+
+                </Grid>
+            </TabItem>
         </TabControl>
     </DockPanel>
 </Window>

@@ -36,16 +36,20 @@ namespace IO_projekt
 
             connection = new FbConnection(csb.ToString());
             connection.Open();
-            Book test = new Book(1, "GIMP. Poradnik", 1, "Poradniki", 1, "Kamil Kuźmicki", 1, "Znak", 2021, 2);
-            Books.Items.Add(test);
 
+            refreshBookList();
+        }
+
+        private void refreshBookList()
+        {
+            Books.Items.Clear();
             using (var transaction = connection.BeginTransaction())
             {
                 using (var command = new FbCommand("select ID_KSIAZKA, TYTUL, ks.ID_KATEGORIA, KATEGORIA, ks.ID_AUTOR, IMIE || ' ' || NAZWISKO, ks.ID_WYDAWNICTWO, WYDAWNICTWO, " +
                     "ROK_WYDANIA, ILOSC from KSIAZKA ks " +
                     "inner join KATEGORIE ka on ks.ID_KATEGORIA = ka.ID_KATEGORIA " +
                     "inner join AUTORZY a on ks.ID_AUTOR = a.ID_AUTOR " +
-                    "inner join WYDAWNICTWA w on ks.ID_WYDAWNICTWO = w.ID_WYDAWNICTWO", connection, transaction))
+                    "inner join WYDAWNICTWA w on ks.ID_WYDAWNICTWO = w.ID_WYDAWNICTWO order by TYTUL", connection, transaction))
                 {
                     using (var reader = command.ExecuteReader())
                     {
@@ -53,7 +57,7 @@ namespace IO_projekt
                         {
                             IDataRecord record = reader;
                             Console.WriteLine("heh");
-                            Book tmp = new Book((int)record[0], (string)record[1], (int)record[2], (string)record[3], (int)record[4], (string)record[5], 
+                            Book tmp = new Book((int)record[0], (string)record[1], (int)record[2], (string)record[3], (int)record[4], (string)record[5],
                                 (int)record[6], (string)record[7], (int)record[8], (int)record[9]);
                             Books.Items.Add(tmp);
                         }
@@ -64,9 +68,8 @@ namespace IO_projekt
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            this.IsEnabled = false;
-            BookAdd addWindow = new BookAdd();
-            addWindow.Show();
+            AddBookWindow addWindow = new AddBookWindow();
+            addWindow.ShowDialog();
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
@@ -75,9 +78,30 @@ namespace IO_projekt
         }
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            //this.IsEnabled = false;
-            DeleteBookWindow deleteWindow = new DeleteBookWindow();
-            deleteWindow.ShowDialog();
+            if (Books.SelectedItem != null)
+            {
+                Book tmp = (Book)Books.SelectedItem;
+                MessageBoxResult result = MessageBox.Show("Czy na pewno chcesz usunąć książkę: \n" + tmp.TYTUL + "?", 
+                    "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
+                if(result == MessageBoxResult.Yes)
+                {
+                    FbCommand command = new FbCommand("delete from KSIAZKA where ID_KSIAZKA = " + tmp.ID_KSIAZKA, connection);
+                    int result2 = command.ExecuteNonQuery();
+                    if (result2 == 0)
+                    {
+                        MessageBox.Show("Nie udało się pomyślnie usunąć książki.", "Potwierdzenie", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Książka została usunięta.", "Potwierdzenie", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+                refreshBookList();
+            }
+            else
+            {
+                MessageBox.Show("Musisz najpierw wybrać pozycję!", "Informacja", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         private void btnBook_Click(object sender, RoutedEventArgs e)
         {

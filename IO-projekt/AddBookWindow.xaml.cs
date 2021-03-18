@@ -18,9 +18,9 @@ namespace IO_projekt
     /// <summary>
     /// Logika interakcji dla klasy BookAdd.xaml
     /// </summary>
-    public partial class BookAdd : Window
+    public partial class AddBookWindow : Window
     {
-        public BookAdd()
+        public AddBookWindow()
         {
             InitializeComponent();
         }
