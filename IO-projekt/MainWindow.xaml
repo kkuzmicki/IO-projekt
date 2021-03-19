@@ -86,6 +86,38 @@
 
                 </Grid>
             </TabItem>
+            <TabItem Header="Lista kategorii">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <DataGrid x:Name="CategoriesDG" AlternatingRowBackground="AliceBlue" CanUserAddRows="False">
+
+                    </DataGrid>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Lista miasta">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <DataGrid x:Name="CitiesDG" AlternatingRowBackground="AliceBlue" CanUserAddRows="False">
+
+                    </DataGrid>
+
+                </Grid>
+            </TabItem>
         </TabControl>
     </DockPanel>
 </Window>

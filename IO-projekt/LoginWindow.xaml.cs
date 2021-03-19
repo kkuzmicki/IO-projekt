@@ -50,26 +50,6 @@ namespace IO_projekt
 
         private void loginB_click(object sender, RoutedEventArgs e)
         {
-            //using (var transaction = connection.BeginTransaction())
-            //{
-            //    using (var command = new FbCommand("select LOGIN, PASSWORD from USERS", connection, transaction))
-            //    {
-            //        using (var reader = command.ExecuteReader())
-            //        {
-            //            while (reader.Read())
-            //            {
-            //                IDataRecord record = reader;
-            //                if (loginTB.Text == (String)record[0] && passwordPB.Password == (String)record[1])
-            //                {
-            //                    MainWindow objSecondWindow = new MainWindow();
-            //                    this.Close();
-            //                    objSecondWindow.Show();
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-
             var command2 = new FbCommand("select COUNT(*) from PRACOWNICY where LOGIN = '" + loginTB.Text + "' AND HASLO = '" + passwordPB.Password + "'", connection);
             Int32 count = (Int32)command2.ExecuteScalar();
             if(count > 0)
