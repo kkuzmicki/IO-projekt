@@ -23,12 +23,74 @@ namespace IO_projekt
         public AddBookWindow()
         {
             InitializeComponent();
+            dateTB.Text = _dateValue.ToString();
+            quantityTB.Text = _numValue.ToString();
         }
 
-        private void PreviewTextInput(object sender, TextCompositionEventArgs e)
+
+        private int _numValue = 0;
+        private int _dateValue = 0;
+
+        public int NumValue
         {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
+            get { return _numValue; }
+            set
+            {
+                _numValue = value;
+                quantityTB.Text = value.ToString();
+            }
+        }
+
+        public int DateValue
+        {
+            get { return _numValue; }
+            set
+            {
+                _dateValue = value;
+                dateTB.Text = value.ToString();
+            }
+        }
+
+        private void cmdUp_Click(object sender, RoutedEventArgs e)
+        {
+            NumValue++;
+        }
+
+        private void cmdDown_Click(object sender, RoutedEventArgs e)
+        {
+            NumValue--;
+        }
+
+        private void cmd2Up_Click(object sender, RoutedEventArgs e)
+        {
+            DateValue++;
+        }
+
+        private void cmd2Down_Click(object sender, RoutedEventArgs e)
+        {
+            DateValue--;
+        }
+
+        private void txtNum_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (quantityTB == null)
+            {
+                return;
+            }
+
+            if (!int.TryParse(quantityTB.Text, out _numValue))
+                quantityTB.Text = _numValue.ToString();
+        }
+
+        private void dateNum_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (dateTB == null)
+            {
+                return;
+            }
+
+            if (!int.TryParse(dateTB.Text, out _dateValue))
+                dateTB.Text = _dateValue.ToString();
         }
 
         private void btnAccept_Click(object sender, RoutedEventArgs e)

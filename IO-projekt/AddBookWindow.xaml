@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IO_projekt"
         mc:Ignorable="d"
-        Title="Dodawanie książki" Height="420" Width="500" FontSize="18">
+        Title="Dodawanie książki" Height="400" Width="500" FontSize="14">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
@@ -49,10 +49,18 @@
         <TextBox Name="publishingTB" Grid.Row="5" Grid.Column="2" Margin="10,5,0,5"/>
 
         <TextBlock Grid.Row="6" Grid.Column="1" Text="Data wydania:" VerticalAlignment="Center"/>
-        <DatePicker Name="dateTB" Grid.Row="6" Grid.Column="2" Margin="10,5,0,5"/>
+        <StackPanel Grid.Row="6" Grid.Column="2" Orientation="Horizontal">
+            <TextBox x:Name="dateTB" x:FieldModifier="private" Margin="5,5,0,5" Width="150" Text="0" TextChanged="txtNum_TextChanged" />
+            <Button x:Name="cmd2Up" x:FieldModifier="private" Margin="5,5,0,5" Content="˄" Width="20" Click="cmdUp_Click" />
+            <Button x:Name="cmd2Down" x:FieldModifier="private" Margin="0,5,0,5"  Content="˅" Width="20" Click="cmdDown_Click" />
+        </StackPanel>
 
         <TextBlock Grid.Row="7" Grid.Column="1" Text="Ilość:" VerticalAlignment="Center"/>
-        <TextBox Name="quantityTB" Grid.Row="7" Grid.Column="2" PreviewTextInput="PreviewTextInput" Margin="10,5,0,0"/>
+        <StackPanel Grid.Row="7" Grid.Column="2" Orientation="Horizontal">
+            <TextBox x:Name="quantityTB" x:FieldModifier="private" Margin="5,5,0,5" Width="150" Text="0" TextChanged="txtNum_TextChanged" />
+            <Button x:Name="cmdUp" x:FieldModifier="private" Margin="5,5,0,5" Content="˄" Width="20" Click="cmdUp_Click" />
+            <Button x:Name="cmdDown" x:FieldModifier="private" Margin="0,5,0,5"  Content="˅" Width="20" Click="cmdDown_Click" />
+        </StackPanel>
 
         <UniformGrid Rows="1" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="3" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
             <Button Name="btnAccept" Click="btnAccept_Click" Grid.Column="0" Margin="5" Padding="6.3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Zatwierdź</Button>
