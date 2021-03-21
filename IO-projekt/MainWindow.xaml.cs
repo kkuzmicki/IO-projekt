@@ -40,6 +40,26 @@ namespace IO_projekt
             refreshBookList();
         }
 
+        private void refreshRoleList()
+        {
+            RolesDG.Items.Clear();
+            using (var transaction = connection.BeginTransaction())
+            {
+                using (var command = new FbCommand("select ID_ROLA, ROLA from ROLE order by ROLA", connection, transaction))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            IDataRecord record = reader;
+                            Role tmp = new Role((int)record[0], (string)record[1]);
+                            RolesDG.Items.Add(tmp);
+                        }
+                    }
+                }
+            }
+        }
+
         private void refreshBookList()
         {
             Books.Items.Clear();
@@ -80,6 +100,7 @@ namespace IO_projekt
         {
             if (Books.SelectedItem != null)
             {
+                Console.WriteLine("typ:" + Books.SelectedItem.GetType());
                 Book tmp = (Book)Books.SelectedItem;
                 MessageBoxResult result = MessageBox.Show("Czy na pewno chcesz usunąć książkę: \n" + tmp.TYTUL + "?", 
                     "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
@@ -112,5 +133,19 @@ namespace IO_projekt
 
         }
 
+        private void RolesTI_ContextMenuOpening(object sender, ContextMenuEventArgs e)
+        {
+            
+        }
+
+        private void RolesTI_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            
+        }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            refreshRoleList();
+        }
     }
 }
