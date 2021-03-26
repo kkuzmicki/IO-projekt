@@ -35,7 +35,6 @@
                             <DataGridTextColumn Header="Ilość" Binding="{Binding Path=ILOSC}"/>
                         </DataGrid.Columns>
                     </DataGrid>
-
                 </Grid>
             </TabItem>
             <TabItem x:Name="usersTI" Header="Lista czytelników">
@@ -84,6 +83,28 @@
 
                     </DataGrid>
 
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="PublishersTI" Header="Lista wydawnictw">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <DataGrid x:Name="PublishersDG" AlternatingRowBackground="AliceBlue" CanUserAddRows="False" SelectionMode="Single" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Tytuł" Binding="{Binding Path=TYTUL}"/>
+                            <DataGridTextColumn Header="Kategoria" Binding="{Binding Path=KATEGORIA}"/>
+                            <DataGridTextColumn Header="Autor" Binding="{Binding Path=AUTOR}"/>
+                            <DataGridTextColumn Header="Wydawnictwo" Binding="{Binding Path=WYDAWNICTWO}"/>
+                            <DataGridTextColumn Header="Rok wydania" Binding="{Binding Path=ROK_WYDANIA}"/>
+                            <DataGridTextColumn Header="Ilość" Binding="{Binding Path=ILOSC}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
             <TabItem Header="Lista kategorii">

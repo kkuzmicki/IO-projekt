@@ -38,6 +38,28 @@ namespace IO_projekt
             connection.Open();
 
             refreshBookList();
+            refreshRoleList();
+            refreshPublishersList();
+        }
+
+        private void refreshPublishersList()
+        {
+            RolesDG.Items.Clear();
+            using (var transaction = connection.BeginTransaction())
+            {
+                using (var command = new FbCommand("select ID_ROLA, ROLA from ROLE order by ROLA", connection, transaction))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            IDataRecord record = reader;
+                            Role tmp = new Role((int)record[0], (string)record[1]);
+                            RolesDG.Items.Add(tmp);
+                        }
+                    }
+                }
+            }
         }
 
         private void refreshRoleList()
@@ -110,7 +132,7 @@ namespace IO_projekt
                     int result2 = command.ExecuteNonQuery();
                     if (result2 == 0)
                     {
-                        MessageBox.Show("Nie udało się pomyślnie usunąć książki.", "Potwierdzenie", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Nie udało się pomyślnie usunąć książki.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     else
                     {
@@ -118,6 +140,7 @@ namespace IO_projekt
                     }
                 }
                 refreshBookList();
+                
             }
             else
             {
@@ -145,7 +168,10 @@ namespace IO_projekt
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            refreshRoleList();
+            if (e.Source is TabControl)
+            {
+                refreshRoleList();
+            }
         }
     }
 }
