@@ -23,6 +23,7 @@ namespace IO_projekt
         public AddBookWindow()
         {
             InitializeComponent();
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             dateTB.Text = _dateValue.ToString();
             quantityTB.Text = _numValue.ToString();
         }
@@ -93,6 +94,16 @@ namespace IO_projekt
                 dateTB.Text = _dateValue.ToString();
         }
 
+        private void btnAuthor_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnPublishing_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void btnAccept_Click(object sender, RoutedEventArgs e)
         {
 
@@ -100,7 +111,7 @@ namespace IO_projekt
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
     }
 }

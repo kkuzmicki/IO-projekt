@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IO_projekt"
         mc:Ignorable="d"
-        Title="Dodawanie książki" Height="400" Width="500" FontSize="14">
+        Title="Dodawanie książki" Height="400" Width="400" FontSize="14" ResizeMode="CanMinimize" Background="White" Foreground="#FF3F3F46" BorderBrush="#FF3F3F46" HorizontalAlignment="Center" VerticalAlignment="Center">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
@@ -31,10 +31,10 @@
         <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Text="Dodawanie książki" FontSize="36" HorizontalAlignment="Center" Margin="0,0,0,10"/>
 
         <TextBlock Grid.Row="2" Grid.Column="1" Text="Tytuł:" VerticalAlignment="Center"/>
-        <TextBox Name="titleTB" Grid.Row="2" Grid.Column="2" Margin="10,5,0,5" VerticalAlignment="Center" MinWidth="200"/>
+        <TextBox Name="titleTB" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="10,5,0,5" VerticalAlignment="Center" MinWidth="200"/>
 
         <TextBlock Grid.Row="3" Grid.Column="1" Text="Kategoria:" VerticalAlignment="Center"/>
-        <ComboBox Name="genreTB" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" Margin="10,5,0,5">
+        <ComboBox Name="genreTB" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="10,5,0,5">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Path=KATEGORIA}"/>
@@ -44,15 +44,17 @@
 
         <TextBlock Grid.Row="4" Grid.Column="1" Text="Autor:" VerticalAlignment="Center"/>
         <TextBox Name="authorTB"  Grid.Row="4" Grid.Column="2" Margin="10,5,0,5"/>
+        <Button x:Name="btnAuthor" Click="btnAuthor_Click" Grid.Row="4" Grid.Column="3" Margin="10,7,3,7">。。。</Button>
 
         <TextBlock Grid.Row="5" Grid.Column="1" Text="Wydawnictwo:" VerticalAlignment="Center"/>
         <TextBox Name="publishingTB" Grid.Row="5" Grid.Column="2" Margin="10,5,0,5"/>
+        <Button x:Name="btnPublishing" Click="btnPublishing_Click" Grid.Row="5" Grid.Column="3" Margin="10,7,3,7">。。。</Button>
 
         <TextBlock Grid.Row="6" Grid.Column="1" Text="Data wydania:" VerticalAlignment="Center"/>
         <StackPanel Grid.Row="6" Grid.Column="2" Orientation="Horizontal">
-            <TextBox x:Name="dateTB" x:FieldModifier="private" Margin="5,5,0,5" Width="150" Text="0" TextChanged="txtNum_TextChanged" />
-            <Button x:Name="cmd2Up" x:FieldModifier="private" Margin="5,5,0,5" Content="˄" Width="20" Click="cmdUp_Click" />
-            <Button x:Name="cmd2Down" x:FieldModifier="private" Margin="0,5,0,5"  Content="˅" Width="20" Click="cmdDown_Click" />
+            <TextBox x:Name="dateTB" x:FieldModifier="private" Margin="5,5,0,5" Width="150" Text="0" TextChanged="dateNum_TextChanged" />
+            <Button x:Name="cmd2Up" x:FieldModifier="private" Margin="5,5,0,5" Content="˄" Width="20" Click="cmd2Up_Click" />
+            <Button x:Name="cmd2Down" x:FieldModifier="private" Margin="0,5,0,5"  Content="˅" Width="20" Click="cmd2Down_Click" />
         </StackPanel>
 
         <TextBlock Grid.Row="7" Grid.Column="1" Text="Ilość:" VerticalAlignment="Center"/>
