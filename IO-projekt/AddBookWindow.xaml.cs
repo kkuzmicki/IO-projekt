@@ -96,12 +96,14 @@ namespace IO_projekt
 
         private void btnAuthor_Click(object sender, RoutedEventArgs e)
         {
-
+            AuthorListWindow addWindow = new AuthorListWindow();
+            addWindow.ShowDialog();
         }
 
         private void btnPublishing_Click(object sender, RoutedEventArgs e)
         {
-
+            PublishingListWindow addWindow = new PublishingListWindow();
+            addWindow.ShowDialog();
         }
 
         private void btnAccept_Click(object sender, RoutedEventArgs e)

@@ -1,0 +1,25 @@
+﻿<Window x:Class="IO_projekt.PublishingListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IO_projekt"
+        mc:Ignorable="d"
+        Title="Wydawnictwa" Height="500" Width="300" WindowStyle="ToolWindow">
+    <Window.Resources>
+        <DataTemplate x:Key="PublishingListBox">
+            <DockPanel Margin="3">
+                <TextBlock Text="{Binding WYDAWNICTWO}">
+                    <TextBlock.InputBindings>
+                        <MouseBinding MouseAction="LeftDoubleClick" 
+                                      Command="ApplicationCommands.Close"
+                                      CommandParameter="Left Double Click"/>
+                    </TextBlock.InputBindings>                    
+                </TextBlock>
+            </DockPanel>
+        </DataTemplate>
+    </Window.Resources>
+
+    <ListBox Margin="10,15" Name="Publishing" ItemsSource="{Binding Tables[0]}" ItemTemplate="{StaticResource PublishingListBox}" HorizontalContentAlignment="Stretch"/>
+
+</Window>
