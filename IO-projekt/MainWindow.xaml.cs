@@ -122,7 +122,6 @@ namespace IO_projekt
         {
             if (Books.SelectedItem != null)
             {
-                Console.WriteLine("typ:" + Books.SelectedItem.GetType());
                 Book tmp = (Book)Books.SelectedItem;
                 MessageBoxResult result = MessageBox.Show("Czy na pewno chcesz usunąć książkę: \n" + tmp.TYTUL + "?", 
                     "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
@@ -140,7 +139,7 @@ namespace IO_projekt
                     }
                 }
                 refreshBookList();
-                
+
             }
             else
             {
@@ -171,6 +170,7 @@ namespace IO_projekt
             if (e.Source is TabControl)
             {
                 refreshRoleList();
+                refreshBookList();
             }
         }
     }
