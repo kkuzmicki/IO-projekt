@@ -22,6 +22,7 @@ namespace IO_projekt
     public partial class MainWindow : Window
     {
         FbConnection connection;
+        DataGrid CurrentDG;
         public MainWindow()
         {
             InitializeComponent();
@@ -40,6 +41,8 @@ namespace IO_projekt
             refreshBookList();
             refreshRoleList();
             refreshPublishersList();
+
+            CurrentDG = Books;
         }
 
         private void refreshPublishersList()
@@ -120,6 +123,10 @@ namespace IO_projekt
         }
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
+            /*
+             * pobierać ze wskaźnika selected i getType(), następnie wysłać query do okna i coś z refreshem
+             */
+
             if (Books.SelectedItem != null)
             {
                 Book tmp = (Book)Books.SelectedItem;
@@ -139,7 +146,6 @@ namespace IO_projekt
                     }
                 }
                 refreshBookList();
-
             }
             else
             {
@@ -171,6 +177,22 @@ namespace IO_projekt
             {
                 refreshRoleList();
                 refreshBookList();
+                string tabItem = ((sender as TabControl).SelectedItem as TabItem).Name as string;
+                Console.WriteLine(tabItem);
+                switch(tabItem)
+                {
+                    case "BookIT":
+                        refreshBookList();
+                        CurrentDG = Books;
+                        break;
+                    case "UsersTI":
+
+                        break;
+                    case "RolesTI":
+                        refreshRoleList();
+                        CurrentDG = RolesDG;
+                        break;
+                }
             }
         }
     }

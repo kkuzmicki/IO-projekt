@@ -15,7 +15,7 @@
             <Button Name="btnReturn" Click="btnReturn_Click" Margin="5">Zwróć</Button>
         </StackPanel>
         <TabControl SelectionChanged="TabControl_SelectionChanged">
-            <TabItem x:Name="booksTI" Header="Lista książek">
+            <TabItem x:Name="BooksTI" Header="Lista książek">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
@@ -37,8 +37,12 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="usersTI" Header="Lista czytelników">
+            <TabItem x:Name="UsersTI" Header="Lista czytelników">
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="193*"/>
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
@@ -47,7 +51,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <DataGrid x:Name="Readers" AlternatingRowBackground="AliceBlue" CanUserAddRows="False">
+                    <DataGrid x:Name="Readers" AlternatingRowBackground="AliceBlue" CanUserAddRows="False" Grid.ColumnSpan="2">
 
                     </DataGrid>
 
