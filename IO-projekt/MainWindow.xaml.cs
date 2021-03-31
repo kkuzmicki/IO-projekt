@@ -45,45 +45,6 @@ namespace IO_projekt
             CurrentDG = Books;
         }
 
-        private void refreshPublishersList()
-        {
-            RolesDG.Items.Clear();
-            using (var transaction = connection.BeginTransaction())
-            {
-                using (var command = new FbCommand("select ID_ROLA, ROLA from ROLE order by ROLA", connection, transaction))
-                {
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            IDataRecord record = reader;
-                            Role tmp = new Role((int)record[0], (string)record[1]);
-                            RolesDG.Items.Add(tmp);
-                        }
-                    }
-                }
-            }
-        }
-
-        private void refreshRoleList()
-        {
-            RolesDG.Items.Clear();
-            using (var transaction = connection.BeginTransaction())
-            {
-                using (var command = new FbCommand("select ID_ROLA, ROLA from ROLE order by ROLA", connection, transaction))
-                {
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            IDataRecord record = reader;
-                            Role tmp = new Role((int)record[0], (string)record[1]);
-                            RolesDG.Items.Add(tmp);
-                        }
-                    }
-                }
-            }
-        }
 
         private void refreshBookList()
         {
@@ -110,6 +71,49 @@ namespace IO_projekt
                 }
             }
         }
+        private void refreshAuthorList()
+        {
+
+        }
+        private void refreshPublishersList()
+        {
+            RolesDG.Items.Clear();
+            using (var transaction = connection.BeginTransaction())
+            {
+                using (var command = new FbCommand("select ID_ROLA, ROLA from ROLE order by ROLA", connection, transaction))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            IDataRecord record = reader;
+                            Role tmp = new Role((int)record[0], (string)record[1]);
+                            RolesDG.Items.Add(tmp);
+                        }
+                    }
+                }
+            }
+        }
+        private void refreshRoleList()
+        {
+            RolesDG.Items.Clear();
+            using (var transaction = connection.BeginTransaction())
+            {
+                using (var command = new FbCommand("select ID_ROLA, ROLA from ROLE order by ROLA", connection, transaction))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            IDataRecord record = reader;
+                            Role tmp = new Role((int)record[0], (string)record[1]);
+                            RolesDG.Items.Add(tmp);
+                        }
+                    }
+                }
+            }
+        }
+
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
@@ -126,31 +130,60 @@ namespace IO_projekt
             /*
              * pobierać ze wskaźnika selected i getType(), następnie wysłać query do okna i coś z refreshem
              */
+            FbCommand tmpQuery = null;
+            string confText = "";
+            
+            string errorText = "";
+            string tmpName = "";
+            if (CurrentDG.SelectedItem == null) return;
+            Console.WriteLine(CurrentDG.SelectedItem.GetType().ToString());
+            switch (CurrentDG.SelectedItem.GetType().ToString())
+            {
+                case "IO_projekt.Book":
+                    Book tmpBook = (Book)CurrentDG.SelectedItem;
+                    tmpQuery = new FbCommand("delete from KSIAZKA where ID_KSIAZKA = " + tmpBook.ID_KSIAZKA, connection);
+                    confText = "książkę";
+                    errorText = "książki";
+                    tmpName = tmpBook.TYTUL;
+                    break;
 
-            if (Books.SelectedItem != null)
-            {
-                Book tmp = (Book)Books.SelectedItem;
-                MessageBoxResult result = MessageBox.Show("Czy na pewno chcesz usunąć książkę: \n" + tmp.TYTUL + "?", 
+                case "IO_projekt.Author":
+                    Author tmpAuthor = (Author)CurrentDG.SelectedItem;
+                    tmpQuery = new FbCommand("delete from AUTORZY where ID_AUTOR = " + tmpAuthor.ID_AUTOR, connection);
+                    confText = "autora";
+                    errorText = "autora";
+                    tmpName = tmpAuthor.IMIE + ' ' + tmpAuthor.NAZWISKO;
+                    break;
+
+                case "IO_projekt.Role":
+                    Role tmpRole = (Role)CurrentDG.SelectedItem;
+                    Int32 checkResult = (Int32)new FbCommand("select count(*) from PRACOWNICY where ID_ROLA = " + tmpRole.ID_ROLA, connection).ExecuteScalar();
+                    if(checkResult > 0)
+                    {
+                        MessageBox.Show("Nie można usunąć", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    tmpQuery = new FbCommand("delete from ROLE where ID_ROLA = " + tmpRole.ID_ROLA, connection);
+                    confText = "rolę";
+                    errorText = "roli";
+                    tmpName = tmpRole.ROLA;
+                    break;
+            }
+            MessageBoxResult result = MessageBox.Show("Czy na pewno chcesz usunąć " + confText + ": \n" + tmpName + "?", 
                     "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
-                if(result == MessageBoxResult.Yes)
-                {
-                    FbCommand command = new FbCommand("delete from KSIAZKA where ID_KSIAZKA = " + tmp.ID_KSIAZKA, connection);
-                    int result2 = command.ExecuteNonQuery();
-                    if (result2 == 0)
-                    {
-                        MessageBox.Show("Nie udało się pomyślnie usunąć książki.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Książka została usunięta.", "Potwierdzenie", MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
-                }
-                refreshBookList();
-            }
-            else
+            if(result == MessageBoxResult.Yes)
             {
-                MessageBox.Show("Musisz najpierw wybrać pozycję!", "Informacja", MessageBoxButton.OK, MessageBoxImage.Error);
+                int result2 = tmpQuery.ExecuteNonQuery();
+                if (result2 == 0)
+                {
+                    MessageBox.Show("Nie udało się pomyślnie usunąć " + errorText + ".", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    MessageBox.Show("Pozycja została usunięta.", "Potwierdzenie", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             }
+            refreshBookList();
         }
         private void btnBook_Click(object sender, RoutedEventArgs e)
         {

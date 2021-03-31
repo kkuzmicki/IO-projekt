@@ -80,6 +80,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Author.cs" />
     <Compile Include="AuthorListWindow.xaml.cs">
       <DependentUpon>AuthorListWindow.xaml</DependentUpon>
     </Compile>
