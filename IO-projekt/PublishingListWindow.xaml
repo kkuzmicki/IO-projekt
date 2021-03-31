@@ -11,9 +11,13 @@
             <DockPanel Margin="3">
                 <TextBlock Text="{Binding WYDAWNICTWO}">
                     <TextBlock.InputBindings>
-                        <MouseBinding MouseAction="LeftDoubleClick" 
+                        <!--<MouseBinding MouseAction="LeftDoubleClick" 
                                       Command="ApplicationCommands.Close"
-                                      CommandParameter="Left Double Click"/>
+                                      CommandParameter="Left Double Click"/>-->
+
+                        <MouseBinding MouseAction="LeftDoubleClick"
+                          Command="{Binding MessageCommand}"
+                          CommandParameter="Left Double Click"/>
                     </TextBlock.InputBindings>                    
                 </TextBlock>
             </DockPanel>
