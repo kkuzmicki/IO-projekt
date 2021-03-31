@@ -57,7 +57,7 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Lista pracowników">
+            <TabItem x:Name="WorkersTI" Header="Lista pracowników">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
@@ -73,7 +73,7 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Lista autorów">
+            <TabItem x:Name="AuthorsTI" Header="Lista autorów">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
@@ -84,7 +84,10 @@
                     </Grid.RowDefinitions>
 
                     <DataGrid x:Name="AuthorsDG" AlternatingRowBackground="AliceBlue" CanUserAddRows="False">
-
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Tytuł" Binding="{Binding Path=IMIE}"/>
+                            <DataGridTextColumn Header="Kategoria" Binding="{Binding Path=NAZWISKO}"/>
+                        </DataGrid.Columns>
                     </DataGrid>
 
                 </Grid>

@@ -39,9 +39,6 @@ namespace IO_projekt
             connection.Open();
 
             refreshBookList();
-            refreshRoleList();
-            refreshPublishersList();
-
             CurrentDG = Books;
         }
 
@@ -73,7 +70,22 @@ namespace IO_projekt
         }
         private void refreshAuthorList()
         {
-
+            AuthorsDG.Items.Clear();
+            using (var transaction = connection.BeginTransaction())
+            {
+                using (var command = new FbCommand("select ID_AUTOR, IMIE, NAZWISKO from AUTORZY order by NAZWISKO", connection, transaction))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            IDataRecord record = reader;
+                            Author tmp = new Author((int)record[0], (string)record[1], (string)record[2]);
+                            AuthorsDG.Items.Add(tmp);
+                        }
+                    }
+                }
+            }
         }
         private void refreshPublishersList()
         {
@@ -114,25 +126,20 @@ namespace IO_projekt
             }
         }
 
-
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             AddBookWindow addWindow = new AddBookWindow();
             addWindow.ShowDialog();
         }
-
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
 
         }
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            /*
-             * pobierać ze wskaźnika selected i getType(), następnie wysłać query do okna i coś z refreshem
-             */
             FbCommand tmpQuery = null;
             string confText = "";
-            
+            Int32 checkResult = 0;
             string errorText = "";
             string tmpName = "";
             if (CurrentDG.SelectedItem == null) return;
@@ -149,6 +156,12 @@ namespace IO_projekt
 
                 case "IO_projekt.Author":
                     Author tmpAuthor = (Author)CurrentDG.SelectedItem;
+                    checkResult = (Int32)new FbCommand("select count(*) from KSIAZKA where ID_AUTOR = " + tmpAuthor.ID_AUTOR, connection).ExecuteScalar();
+                    if (checkResult > 0)
+                    {
+                        MessageBox.Show("Nie można usunąć autora. Występuje on w " + checkResult + " książkach.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
                     tmpQuery = new FbCommand("delete from AUTORZY where ID_AUTOR = " + tmpAuthor.ID_AUTOR, connection);
                     confText = "autora";
                     errorText = "autora";
@@ -157,10 +170,10 @@ namespace IO_projekt
 
                 case "IO_projekt.Role":
                     Role tmpRole = (Role)CurrentDG.SelectedItem;
-                    Int32 checkResult = (Int32)new FbCommand("select count(*) from PRACOWNICY where ID_ROLA = " + tmpRole.ID_ROLA, connection).ExecuteScalar();
+                    checkResult = (Int32)new FbCommand("select count(*) from PRACOWNICY where ID_ROLA = " + tmpRole.ID_ROLA, connection).ExecuteScalar();
                     if(checkResult > 0)
                     {
-                        MessageBox.Show("Nie można usunąć", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Nie można usunąć roli. Występuje ona u " + checkResult + " pracowników.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
                     tmpQuery = new FbCommand("delete from ROLE where ID_ROLA = " + tmpRole.ID_ROLA, connection);
@@ -218,9 +231,16 @@ namespace IO_projekt
                         refreshBookList();
                         CurrentDG = Books;
                         break;
+
                     case "UsersTI":
 
                         break;
+
+                    case "AuthorsTI":
+                        refreshAuthorList();
+                        CurrentDG = AuthorsDG;
+                        break;
+
                     case "RolesTI":
                         refreshRoleList();
                         CurrentDG = RolesDG;
