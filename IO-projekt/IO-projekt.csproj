@@ -88,13 +88,17 @@
     <Compile Include="AddBookWindow.xaml.cs">
       <DependentUpon>AddBookWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Category.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Publisher.cs" />
     <Compile Include="PublishingListWindow.xaml.cs">
       <DependentUpon>PublishingListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Role.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="Worker.cs" />
     <Page Include="AddBookWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

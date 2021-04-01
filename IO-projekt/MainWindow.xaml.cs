@@ -23,7 +23,7 @@ namespace IO_projekt
     {
         FbConnection connection;
         DataGrid CurrentDG;
-        public MainWindow()
+        public MainWindow(string accountType)
         {
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
@@ -40,6 +40,13 @@ namespace IO_projekt
 
             refreshBookList();
             CurrentDG = Books;
+
+            if(accountType == "Bibliotekarz")
+            {
+                WorkersTI.IsEnabled = false;
+                RolesTI.IsEnabled = false;
+                CategoriesTI.IsEnabled = false;
+            }
         }
 
 
@@ -68,6 +75,29 @@ namespace IO_projekt
                 }
             }
         }
+        private void refreshUserList()
+        {
+
+        }
+        private void refreshWorkerList()
+        {
+            WorkersDG.Items.Clear();
+            using (var transaction = connection.BeginTransaction())
+            {
+                using (var command = new FbCommand("select ID_PRACOWNIK, LOGIN, HASLO, IMIE, NAZWISKO, r.ID_ROLA, ROLA from PRACOWNICY p inner join ROLE r on p.ID_ROLA = r.ID_ROLA order by NAZWISKO", connection, transaction))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            IDataRecord record = reader;
+                            Worker tmp = new Worker((int)record[0], (string)record[1], (string)record[2], (string)record[3], (string)record[4], (int)record[5], (string)record[6]);
+                            WorkersDG.Items.Add(tmp);
+                        }
+                    }
+                }
+            }
+        }
         private void refreshAuthorList()
         {
             AuthorsDG.Items.Clear();
@@ -89,18 +119,18 @@ namespace IO_projekt
         }
         private void refreshPublishersList()
         {
-            RolesDG.Items.Clear();
+            PublishersDG.Items.Clear();
             using (var transaction = connection.BeginTransaction())
             {
-                using (var command = new FbCommand("select ID_ROLA, ROLA from ROLE order by ROLA", connection, transaction))
+                using (var command = new FbCommand("select ID_WYDAWNICTWO, WYDAWNICTWO from WYDAWNICTWA order by WYDAWNICTWO", connection, transaction))
                 {
                     using (var reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
                             IDataRecord record = reader;
-                            Role tmp = new Role((int)record[0], (string)record[1]);
-                            RolesDG.Items.Add(tmp);
+                            Publisher tmp = new Publisher((int)record[0], (string)record[1]);
+                            PublishersDG.Items.Add(tmp);
                         }
                     }
                 }
@@ -120,6 +150,25 @@ namespace IO_projekt
                             IDataRecord record = reader;
                             Role tmp = new Role((int)record[0], (string)record[1]);
                             RolesDG.Items.Add(tmp);
+                        }
+                    }
+                }
+            }
+        }
+        private void refreshCategoryList()
+        {
+            CategoriesDG.Items.Clear();
+            using (var transaction = connection.BeginTransaction())
+            {
+                using (var command = new FbCommand("select ID_KATEGORIA, KATEGORIA from KATEGORIE order by KATEGORIA", connection, transaction))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            IDataRecord record = reader;
+                            Category tmp = new Category((int)record[0], (string)record[1]);
+                            CategoriesDG.Items.Add(tmp);
                         }
                     }
                 }
@@ -152,6 +201,8 @@ namespace IO_projekt
                     confText = "książkę";
                     errorText = "książki";
                     tmpName = tmpBook.TYTUL;
+                    confirmationMB(tmpQuery, confText, errorText, tmpName);
+                    refreshBookList();
                     break;
 
                 case "IO_projekt.Author":
@@ -166,6 +217,8 @@ namespace IO_projekt
                     confText = "autora";
                     errorText = "autora";
                     tmpName = tmpAuthor.IMIE + ' ' + tmpAuthor.NAZWISKO;
+                    confirmationMB(tmpQuery, confText, errorText, tmpName);
+                    refreshAuthorList();
                     break;
 
                 case "IO_projekt.Role":
@@ -180,11 +233,61 @@ namespace IO_projekt
                     confText = "rolę";
                     errorText = "roli";
                     tmpName = tmpRole.ROLA;
+                    confirmationMB(tmpQuery, confText, errorText, tmpName);
+                    refreshRoleList();
                     break;
+
+                case "IO_projekt.Category":
+                    Category tmpCategory = (Category)CurrentDG.SelectedItem;
+                    checkResult = (Int32)new FbCommand("select count(*) from KSIAZKA where ID_KATEGORIA = " + tmpCategory.ID_KATEGORIA, connection).ExecuteScalar();
+                    if (checkResult > 0)
+                    {
+                        MessageBox.Show("Nie można usunąć kategorii. Występuje ona w " + checkResult + " książkach.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    tmpQuery = new FbCommand("delete from KATEGORIE where ID_KATEGORIA = " + tmpCategory.ID_KATEGORIA, connection);
+                    confText = "kategorię";
+                    errorText = "kategorii";
+                    tmpName = tmpCategory.KATEGORIA;
+                    confirmationMB(tmpQuery, confText, errorText, tmpName);
+                    refreshCategoryList();
+                    break;
+
+                case "IO_projekt.Publisher":
+                    Publisher tmpPublisher = (Publisher)CurrentDG.SelectedItem;
+                    checkResult = (Int32)new FbCommand("select count(*) from KSIAZKA where ID_WYDAWNICTWO = " + tmpPublisher.ID_WYDAWNICTWO, connection).ExecuteScalar();
+                    if (checkResult > 0)
+                    {
+                        MessageBox.Show("Nie można usunąć wydawnictwa. Występuje ono w " + checkResult + " książkach.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    tmpQuery = new FbCommand("delete from WYDAWNICTWA where ID_WYDAWNICTWO = " + tmpPublisher.ID_WYDAWNICTWO, connection);
+                    confText = "wydawnictwo";
+                    errorText = "wydawnictwa";
+                    tmpName = tmpPublisher.WYDAWNICTWO;
+                    confirmationMB(tmpQuery, confText, errorText, tmpName);
+                    refreshPublishersList();
+                    break;
+
+                case "IO_projekt.Worker":
+                    Worker tmpWorker = (Worker)CurrentDG.SelectedItem;
+                    tmpQuery = new FbCommand("delete from PRACOWNICY where ID_PRACOWNIK = " + tmpWorker.ID_PRACOWNIK, connection);
+                    confText = "pracownika";
+                    errorText = "pracownika";
+                    tmpName = tmpWorker.IMIE + ' ' + tmpWorker.NAZWISKO;
+                    confirmationMB(tmpQuery, confText, errorText, tmpName);
+                    refreshWorkerList();
+                    break;
+
+                default:
+                    return;
             }
-            MessageBoxResult result = MessageBox.Show("Czy na pewno chcesz usunąć " + confText + ": \n" + tmpName + "?", 
+        }
+        private void confirmationMB(FbCommand tmpQuery, string confText, string errorText, string tmpName)
+        {
+            MessageBoxResult result = MessageBox.Show("Czy na pewno chcesz usunąć " + confText + ": \n" + tmpName + "?",
                     "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
-            if(result == MessageBoxResult.Yes)
+            if (result == MessageBoxResult.Yes)
             {
                 int result2 = tmpQuery.ExecuteNonQuery();
                 if (result2 == 0)
@@ -196,7 +299,6 @@ namespace IO_projekt
                     MessageBox.Show("Pozycja została usunięta.", "Potwierdzenie", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
-            refreshBookList();
         }
         private void btnBook_Click(object sender, RoutedEventArgs e)
         {
@@ -214,8 +316,9 @@ namespace IO_projekt
 
         private void RolesTI_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            
         }
+
+        
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -227,18 +330,34 @@ namespace IO_projekt
                 Console.WriteLine(tabItem);
                 switch(tabItem)
                 {
-                    case "BookIT":
+                    case "BooksTI":
                         refreshBookList();
                         CurrentDG = Books;
                         break;
 
                     case "UsersTI":
+                        refreshUserList();
+                        CurrentDG = UsersDG;
+                        break;
 
+                    case "WorkersTI":
+                        refreshWorkerList();
+                        CurrentDG = WorkersDG;
                         break;
 
                     case "AuthorsTI":
                         refreshAuthorList();
                         CurrentDG = AuthorsDG;
+                        break;
+
+                    case "PublishersTI":
+                        refreshPublishersList();
+                        CurrentDG = PublishersDG;
+                        break;
+
+                    case "CategoriesTI":
+                        refreshCategoryList();
+                        CurrentDG = CategoriesDG;
                         break;
 
                     case "RolesTI":

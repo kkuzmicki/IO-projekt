@@ -54,7 +54,7 @@ namespace IO_projekt
             Int32 count = (Int32)command2.ExecuteScalar();
             if(count > 0)
             {
-                MainWindow objSecondWindow = new MainWindow();
+                MainWindow objSecondWindow = new MainWindow("Bibliotekarz"); // wpisana na sztywno wartość
                 this.Close();
                 objSecondWindow.Show();
             } 
