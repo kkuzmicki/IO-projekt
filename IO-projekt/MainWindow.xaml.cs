@@ -23,7 +23,7 @@ namespace IO_projekt
     {
         FbConnection connection;
         DataGrid CurrentDG;
-        public MainWindow(string accountType)
+        public MainWindow(Int32 accountType)
         {
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
@@ -41,7 +41,7 @@ namespace IO_projekt
             refreshBookList();
             CurrentDG = Books;
 
-            if(accountType == "Bibliotekarz")
+            if(accountType == 1)
             {
                 WorkersTI.IsEnabled = false;
                 RolesTI.IsEnabled = false;

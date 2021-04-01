@@ -50,11 +50,12 @@ namespace IO_projekt
 
         private void loginB_click(object sender, RoutedEventArgs e)
         {
-            var command2 = new FbCommand("select COUNT(*) from PRACOWNICY where LOGIN = '" + loginTB.Text + "' AND HASLO = '" + passwordPB.Password + "'", connection);
+            var command2 = new FbCommand("select count(*) from PRACOWNICY where LOGIN = '" + loginTB.Text + "' AND HASLO = '" + passwordPB.Password + "'", connection);
             Int32 count = (Int32)command2.ExecuteScalar();
             if(count > 0)
             {
-                MainWindow objSecondWindow = new MainWindow("Bibliotekarz"); // wpisana na sztywno wartość
+                Int32 id = (Int32)new FbCommand("select ID_ROLA from PRACOWNICY where LOGIN = '" + loginTB.Text + "' AND HASLO = '" + passwordPB.Password + "'", connection).ExecuteScalar();
+                MainWindow objSecondWindow = new MainWindow(id);
                 this.Close();
                 objSecondWindow.Show();
             } 
@@ -62,7 +63,6 @@ namespace IO_projekt
             {
                 errorTB.Text = "Błędne dane";
             }
-            Console.WriteLine(count);
         }
     }
 }
