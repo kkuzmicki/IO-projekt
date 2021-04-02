@@ -34,14 +34,7 @@ namespace IO_projekt
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             BindData();
-            /*Author.ItemsSource = LoadListBoxData();*/
         }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            BindData();
-        }
-
 
         private void BindData()
         {
@@ -66,6 +59,16 @@ namespace IO_projekt
 
                 Author.DataContext = dtSet;
             }
+        }
+
+        private void btnAccept_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Author_Loaded(object sender, RoutedEventArgs e)
+        {
+            BindData();
         }
     }
 }

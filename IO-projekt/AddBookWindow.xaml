@@ -35,10 +35,11 @@
         <TextBox Name="titleTB" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="10,5,0,5" VerticalAlignment="Center" MinWidth="200"/>
 
         <TextBlock Grid.Row="3" Grid.Column="1" Text="Kategoria:" VerticalAlignment="Center"/>
-        <ComboBox Name="genreTB" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="10,5,0,5">
+        
+        <ComboBox Name="genreTB" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="10,5,0,5" Loaded="genreTB_Loaded" SelectionChanged="genreTB_SelectionChanged">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Path=KATEGORIA}"/>
+                    <TextBlock Text="{Binding KATEGORIA}"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IO_projekt"
         mc:Ignorable="d"
-        Title="Autorzy" Height="500" Width="300" WindowStyle="ToolWindow">
+        Title="Autorzy" MinHeight="500" MinWidth="300" Height="500" Width="300" WindowStyle="ToolWindow" Background="White">
     <Window.Resources>
         <DataTemplate x:Key="AuthorListBox">
             <DockPanel Margin="3">
@@ -16,6 +16,10 @@
         </DataTemplate>
     </Window.Resources>
 
-    <ListBox Margin="10,15" Name="Author" ItemsSource="{Binding Tables[0]}" ItemTemplate="{StaticResource AuthorListBox}" />
-
+    <DockPanel Height="auto">
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Center">
+            <Button Name="btnAccept" Click="btnAccept_Click" Grid.Column="0" Margin="5,0,5,10" Padding="6.3" Width="100">Wybierz</Button>
+        </StackPanel>
+        <ListBox Margin="10,15,10,10" Name="Author" ItemsSource="{Binding Tables[0]}" ItemTemplate="{StaticResource AuthorListBox}" Loaded="Author_Loaded" />
+    </DockPanel>
 </Window>

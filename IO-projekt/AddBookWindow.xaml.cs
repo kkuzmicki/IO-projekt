@@ -12,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using FirebirdSql.Data.FirebirdClient;
+using System.Data;
 
 namespace IO_projekt
 {
@@ -20,10 +22,50 @@ namespace IO_projekt
     /// </summary>
     public partial class AddBookWindow : Window
     {
+
+        public FbCommand command;
+        public FbConnection connection;
+        string sql = "select ID_KATEGORIA, KATEGORIA from KATEGORIE";
+
         public AddBookWindow()
         {
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            BindData();
+        }
+
+        private void BindData()
+        {
+
+            FbConnectionStringBuilder csb = new FbConnectionStringBuilder();
+            csb.DataSource = "localhost";
+            csb.Port = 3050;
+            csb.Database = @"C:\bazy\IO.FDB";
+            csb.UserID = "SYSDBA";
+            csb.Password = "masterkey";
+            csb.ServerType = FbServerType.Default;
+
+            DataTable dataTable = new DataTable();
+
+            using (connection = new FbConnection(csb.ToString()))
+            {
+                command = new FbCommand(sql, connection);
+                
+                connection.Open();
+                var reader = command.ExecuteReader();
+
+                dataTable.Columns.Add("ID_KATEGORIA", typeof(int));
+                dataTable.Columns.Add("KATEGORIA", typeof(string));
+
+                while (reader.Read())
+                {
+                    IDataRecord record = reader;
+                    dataTable.Rows.Add((int)record[0], (string)record[1]);
+                }
+
+                genreTB.ItemsSource = dataTable.DefaultView;
+
+            }
         }
 
         private void btnAuthor_Click(object sender, RoutedEventArgs e)
@@ -46,6 +88,19 @@ namespace IO_projekt
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void genreTB_Loaded(object sender, RoutedEventArgs e)
+        {
+            BindData();
+        }
+
+        private void genreTB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 0) return;
+
+            DataRowView row = (DataRowView)e.AddedItems[0];
+            MessageBox.Show("ID: " + row["ID_KATEGORIA"] + "\nKATEGORIA: " + row["KATEGORIA"]);
         }
     }
 }
