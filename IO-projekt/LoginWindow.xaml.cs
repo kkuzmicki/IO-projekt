@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -46,6 +47,8 @@ namespace IO_projekt
 
             connection = new FbConnection(csb.ToString());
             connection.Open();
+
+            Console.WriteLine("SHA: " + sha256_hash("testŹ"));
         }
 
         private void loginB_click(object sender, RoutedEventArgs e)
@@ -58,11 +61,26 @@ namespace IO_projekt
                 MainWindow objSecondWindow = new MainWindow(id);
                 this.Close();
                 objSecondWindow.Show();
-            } 
+            }
             else
             {
                 errorTB.Text = "Błędne dane";
             }
+        }
+
+        public static String sha256_hash(string value)
+        {
+            StringBuilder Sb = new StringBuilder();
+
+            using (var hash = SHA256.Create())
+            {
+                Encoding enc = Encoding.UTF8;
+                Byte[] result = hash.ComputeHash(enc.GetBytes(value));
+
+                foreach (Byte b in result)
+                    Sb.Append(b.ToString("x2"));
+            }
+            return Sb.ToString();
         }
     }
 }
