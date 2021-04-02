@@ -47,17 +47,17 @@ namespace IO_projekt
 
             connection = new FbConnection(csb.ToString());
             connection.Open();
-
-            Console.WriteLine("SHA: " + sha256_hash("testŹ"));
         }
 
         private void loginB_click(object sender, RoutedEventArgs e)
         {
-            var command2 = new FbCommand("select count(*) from PRACOWNICY where LOGIN = '" + loginTB.Text + "' AND HASLO = '" + passwordPB.Password + "'", connection);
+            String pass = sha256_hash(passwordPB.Password);
+
+            var command2 = new FbCommand("select count(*) from PRACOWNICY where LOGIN = '" + loginTB.Text + "' AND HASLO = '" + pass + "'", connection);
             Int32 count = (Int32)command2.ExecuteScalar();
             if(count > 0)
             {
-                Int32 id = (Int32)new FbCommand("select ID_ROLA from PRACOWNICY where LOGIN = '" + loginTB.Text + "' AND HASLO = '" + passwordPB.Password + "'", connection).ExecuteScalar();
+                Int32 id = (Int32)new FbCommand("select ID_ROLA from PRACOWNICY where LOGIN = '" + loginTB.Text + "' AND HASLO = '" + pass + "'", connection).ExecuteScalar();
                 MainWindow objSecondWindow = new MainWindow(id);
                 this.Close();
                 objSecondWindow.Show();
@@ -80,6 +80,7 @@ namespace IO_projekt
                 foreach (Byte b in result)
                     Sb.Append(b.ToString("x2"));
             }
+            Console.WriteLine(Sb.ToString());
             return Sb.ToString();
         }
     }
