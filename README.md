@@ -1,6 +1,6 @@
 # IO-projekt
 #### PRACOWNICY
-admin 123
-root 123
+1. admin 123
+2. root 123
 #### UZYTKOWNICY
-Kamil pass
+1. Kamil pass
