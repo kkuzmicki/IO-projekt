@@ -151,25 +151,6 @@ namespace IO_projekt
                 }
             }
         }
-        private void refreshRoleList()
-        {
-            RolesDG.Items.Clear();
-            using (var transaction = connection.BeginTransaction())
-            {
-                using (var command = new FbCommand("select ID_ROLA, ROLA from ROLE order by ROLA", connection, transaction))
-                {
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            IDataRecord record = reader;
-                            Role tmp = new Role((int)record[0], (string)record[1]);
-                            RolesDG.Items.Add(tmp);
-                        }
-                    }
-                }
-            }
-        }
         private void refreshCategoryList()
         {
             CategoriesDG.Items.Clear();
@@ -189,6 +170,25 @@ namespace IO_projekt
                 }
             }
         }
+        private void refreshRoleList()
+        {
+            RolesDG.Items.Clear();
+            using (var transaction = connection.BeginTransaction())
+            {
+                using (var command = new FbCommand("select ID_ROLA, ROLA from ROLE order by ROLA", connection, transaction))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            IDataRecord record = reader;
+                            Role tmp = new Role((int)record[0], (string)record[1]);
+                            RolesDG.Items.Add(tmp);
+                        }
+                    }
+                }
+            }
+        }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
@@ -199,6 +199,7 @@ namespace IO_projekt
         {
 
         }
+
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             FbCommand tmpQuery = null;
@@ -218,6 +219,16 @@ namespace IO_projekt
                     tmpName = tmpBook.TYTUL;
                     confirmationMB(tmpQuery, confText, errorText, tmpName);
                     refreshBookList();
+                    break;
+
+                case "IO_projekt.User":
+                    User tmpUser = (User)CurrentDG.SelectedItem;
+                    tmpQuery = new FbCommand("delete from UZYTKOWNICY where ID_UZYTKOWNIK = " + tmpUser.ID_UZYTKOWNIK, connection);
+                    confText = "użytkownika";
+                    errorText = "użytkownika";
+                    tmpName = tmpUser.IMIE + ' ' + tmpUser.NAZWISKO;
+                    confirmationMB(tmpQuery, confText, errorText, tmpName);
+                    refreshUserList();
                     break;
 
                 case "IO_projekt.Author":
@@ -315,6 +326,7 @@ namespace IO_projekt
                 }
             }
         }
+
         private void btnBook_Click(object sender, RoutedEventArgs e)
         {
 
@@ -323,17 +335,6 @@ namespace IO_projekt
         {
 
         }
-
-        private void RolesTI_ContextMenuOpening(object sender, ContextMenuEventArgs e)
-        {
-            
-        }
-
-        private void RolesTI_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-        }
-
-        
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

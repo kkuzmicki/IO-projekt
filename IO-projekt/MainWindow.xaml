@@ -140,7 +140,7 @@
 
                 </Grid>
             </TabItem>
-            <TabItem x:Name="RolesTI" Header="Lista ról" ContextMenuOpening="RolesTI_ContextMenuOpening" DataContextChanged="RolesTI_DataContextChanged">
+            <TabItem x:Name="RolesTI" Header="Lista ról">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
