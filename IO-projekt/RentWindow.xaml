@@ -5,12 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IO_projekt"
         mc:Ignorable="d"
-        Title="Wypożyczanie" Height="450" Width="800">
+        Title="Wypożyczanie" Height="450" Width="800" WindowStartupLocation="CenterScreen" Topmost="True">
     <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" VerticalAlignment="Center">
-            <Button Name="rentB" Margin="5">Wypożycz</Button>
-            <Button Name="editB" Margin="5">Edytuj</Button>
-            <Button Name="returnB" Margin="5">Oddaj</Button>
+            <Button Name="rentB" Margin="5" Click="rentB_Click">Wypożycz</Button>
+            <Button Name="editB" Margin="5" Click="editB_Click">Edytuj</Button>
+            <Button Name="returnB" Margin="5" Click="returnB_Click">Oddaj</Button>
         </StackPanel>
+        <TabControl>
+            <TabItem x:Name="BooksTI" Header="Wypożyczone">
+                <ScrollViewer>
+                    <Grid>
+                        <DataGrid x:Name="Books" AlternatingRowBackground="AliceBlue" CanUserAddRows="False" SelectionMode="Single" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Tytuł" Binding="{Binding Path=TYTUL}"/>
+                                <DataGridTextColumn Header="Kategoria" Binding="{Binding Path=KATEGORIA}"/>
+                                <DataGridTextColumn Header="Autor" Binding="{Binding Path=AUTOR}"/>
+                                <DataGridTextColumn Header="Wydawnictwo" Binding="{Binding Path=WYDAWNICTWO}"/>
+                                <DataGridTextColumn Header="Rok wydania" Binding="{Binding Path=ROK_WYDANIA}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem x:Name="ArchivesTI" Header="Oddane">
+                <ScrollViewer>
+                    <Grid>
+                        <DataGrid x:Name="Archivies" AlternatingRowBackground="AliceBlue" CanUserAddRows="False" SelectionMode="Single" IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Tytuł" Binding="{Binding Path=TYTUL}"/>
+                                <DataGridTextColumn Header="Kategoria" Binding="{Binding Path=KATEGORIA}"/>
+                                <DataGridTextColumn Header="Autor" Binding="{Binding Path=AUTOR}"/>
+                                <DataGridTextColumn Header="Wydawnictwo" Binding="{Binding Path=WYDAWNICTWO}"/>
+                                <DataGridTextColumn Header="Rok wydania" Binding="{Binding Path=ROK_WYDANIA}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
     </DockPanel>
 </Window>

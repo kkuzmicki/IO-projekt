@@ -23,16 +23,17 @@ namespace IO_projekt
     /// </summary>
     public partial class AuthorListWindow : Window
     {
-
+        AddBookWindow MainWindow;
         public FbCommand command;
         public FbConnection connection;
         string sql = "select ID_AUTOR, IMIE, NAZWISKO from AUTORZY";
 
-        public AuthorListWindow()
+        public AuthorListWindow(AddBookWindow MainWindow)
         {
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             BindData();
+            this.MainWindow = MainWindow;
         }
 
         private void BindData()
@@ -66,10 +67,13 @@ namespace IO_projekt
             {
                 DataRowView row = Author.SelectedItem as DataRowView;
                 //System.Windows.MessageBox.Show(row["Imie"].ToString() + " " + row["Nazwisko"].ToString());
-                string author;
-                author = row["Imie"].ToString() + " " + row["Nazwisko"].ToString();
+                string authorName, authorSurname;
+                authorName = row["Imie"].ToString();
+                authorSurname = row["Nazwisko"].ToString();
 
-                ((AddBookWindow)Application.Current.MainWindow).authorTB.Text = author;
+                //((AddBookWindow)Application.Current.MainWindow).authorNameTB.Text = authorName;
+                MainWindow.authorNameTB.Text = authorName;
+                MainWindow.authorSurnameTB.Text = authorSurname;
 
                 this.Close();
             }

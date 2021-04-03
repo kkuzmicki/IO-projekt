@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IO_projekt"
         mc:Ignorable="d"
-        Title="Dodawanie książki" Height="400" Width="400" FontSize="14" ResizeMode="CanMinimize" Background="White" Foreground="#FF3F3F46" BorderBrush="#FF3F3F46" HorizontalAlignment="Center" VerticalAlignment="Center">
+        Title="Dodawanie książki" Height="420" Width="400" FontSize="14" ResizeMode="CanMinimize" Background="White" Foreground="#FF3F3F46" BorderBrush="#FF3F3F46" HorizontalAlignment="Center" VerticalAlignment="Center">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
@@ -17,6 +17,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -44,21 +45,30 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <TextBlock Grid.Row="4" Grid.Column="1" Text="Autor:" VerticalAlignment="Center"/>
-        <TextBox Name="authorTB"  Grid.Row="4" Grid.Column="2" Width="200" Margin="10,5,0,5"/>
-        <Button x:Name="btnAuthor" Click="btnAuthor_Click" Grid.Row="4" Grid.Column="3" Margin="10,7,3,7" Cursor="Hand">。。。</Button>
+        <TextBlock Grid.Row="4" Grid.Column="1" Text="Autor:" VerticalAlignment="Center" Grid.RowSpan="2"/>
+        <DockPanel Grid.Row="4" Grid.Column="2" Width="210">
+            <TextBlock Text="Imię:" VerticalAlignment="Center" />
+            <TextBox Name="authorNameTB" Margin="5,5,0,5" HorizontalAlignment="Stretch"/>
+        </DockPanel>
 
-        <TextBlock Grid.Row="5" Grid.Column="1" Text="Wydawnictwo:" VerticalAlignment="Center"/>
-        <TextBox Name="publishingTB" Grid.Row="5" Grid.Column="2" Margin="10,5,0,5" Width="200"/>
-        <Button x:Name="btnPublishing" Click="btnPublishing_Click" Grid.Row="5" Grid.Column="3" Margin="10,7,3,7" Cursor="Hand">。。。</Button>
+        <DockPanel Grid.Row="5" Grid.Column="2" Width="210">
+            <TextBlock Text="Nazwisko:" VerticalAlignment="Center" />
+            <TextBox Name="authorSurnameTB" Margin="5,5,0,5" HorizontalAlignment="Stretch"/>
+        </DockPanel>
 
-        <TextBlock Grid.Row="6" Grid.Column="1" Text="Data wydania:" VerticalAlignment="Center"/>
-        <xctk:IntegerUpDown Name="publishingUpDownControl" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" Margin="10,5,0,5" Minimum="1800" IsUndoEnabled="False" ClipValueToMinMax="True"/>
+        <Button x:Name="btnAuthor" Click="btnAuthor_Click" Grid.Row="4" Grid.Column="3" Grid.RowSpan="2" Margin="10,7,3,7" Cursor="Hand" VerticalAlignment="Center">。。。</Button>
 
-        <TextBlock Grid.Row="7" Grid.Column="1" Text="Ilość:" VerticalAlignment="Center"/>
-        <xctk:IntegerUpDown Name="quantityUpDownControl" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" Margin="10,5,0,5" Minimum="1" AllowTextInput="False"/>
+        <TextBlock Grid.Row="6" Grid.Column="1" Text="Wydawnictwo:" VerticalAlignment="Center"/>
+        <TextBox Name="publishingTB" Grid.Row="6" Grid.Column="2" Margin="10,5,0,5" Width="200"/>
+        <Button x:Name="btnPublishing" Click="btnPublishing_Click" Grid.Row="6" Grid.Column="3" Margin="10,7,3,7" Cursor="Hand">。。。</Button>
 
-        <UniformGrid Rows="1" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="3" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+        <TextBlock Grid.Row="7" Grid.Column="1" Text="Data wydania:" VerticalAlignment="Center"/>
+        <xctk:IntegerUpDown Name="publishingUpDownControl" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" Margin="10,5,0,5" Minimum="1800" IsUndoEnabled="False" ClipValueToMinMax="True"/>
+
+        <TextBlock Grid.Row="8" Grid.Column="1" Text="Ilość:" VerticalAlignment="Center"/>
+        <xctk:IntegerUpDown Name="quantityUpDownControl" Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2" Margin="10,5,0,5" Minimum="1" AllowTextInput="False"/>
+
+        <UniformGrid Rows="1" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="3" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
             <Button Name="btnAccept" Click="btnAccept_Click" Grid.Column="0" Margin="5" Padding="6.3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Zatwierdź</Button>
             <Button Name="btnCancel" Click="btnCancel_Click" Grid.Column="1" Margin="5" Padding="6.3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Anuluj</Button>
         </UniformGrid>

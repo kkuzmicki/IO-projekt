@@ -23,5 +23,20 @@ namespace IO_projekt
         {
             InitializeComponent();
         }
+
+        private void rentB_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void editB_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void returnB_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

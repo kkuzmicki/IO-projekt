@@ -75,7 +75,7 @@ namespace IO_projekt
 
         private void btnAuthor_Click(object sender, RoutedEventArgs e)
         {
-            AuthorListWindow addWindow = new AuthorListWindow();
+            AuthorListWindow addWindow = new AuthorListWindow(this);
             addWindow.ShowDialog();
         }
 
