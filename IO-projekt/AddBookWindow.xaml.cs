@@ -42,7 +42,6 @@ namespace IO_projekt
 
         private void BindData()
         {
-
             FbConnectionStringBuilder csb = new FbConnectionStringBuilder();
             csb.DataSource = "localhost";
             csb.Port = 3050;
@@ -82,7 +81,7 @@ namespace IO_projekt
 
         private void btnPublishing_Click(object sender, RoutedEventArgs e)
         {
-            PublishingListWindow addWindow = new PublishingListWindow();
+            PublishingListWindow addWindow = new PublishingListWindow(this);
             addWindow.ShowDialog();
         }
 

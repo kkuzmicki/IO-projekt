@@ -21,21 +21,21 @@ namespace IO_projekt
     /// </summary>
     public partial class PublishingListWindow : Window
     {
-
+        AddBookWindow MainWindow;
         public FbCommand command;
         public FbConnection connection;
         string sql = "select ID_WYDAWNICTWO, WYDAWNICTWO from WYDAWNICTWA";
 
-        public PublishingListWindow()
+        public PublishingListWindow(AddBookWindow MainWindow)
         {
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             BindData();
+            this.MainWindow = MainWindow;
         }
 
         private void BindData()
         {
-
             FbConnectionStringBuilder csb = new FbConnectionStringBuilder();
             csb.DataSource = "localhost";
             csb.Port = 3050;
@@ -72,8 +72,9 @@ namespace IO_projekt
                 string publishing;
                 publishing = row["Wydawnictwo"].ToString();
 
-                ((AddBookWindow)Application.Current.MainWindow).publishingTB.Text = publishing;
-
+                //((AddBookWindow)Application.Current.MainWindow).publishingTB.Text = publishing;
+                MainWindow.publishingTB.Text = publishing;
+                
                 this.Close();
             }
             else
