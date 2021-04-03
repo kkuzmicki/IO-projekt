@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Xceed.Wpf.Toolkit;
 
 namespace IO_projekt
 {
@@ -26,8 +27,6 @@ namespace IO_projekt
         public FbCommand command;
         public FbConnection connection;
         string sql = "select ID_AUTOR, IMIE, NAZWISKO from AUTORZY";
-
-
 
         public AuthorListWindow()
         {
@@ -63,7 +62,21 @@ namespace IO_projekt
 
         private void btnAccept_Click(object sender, RoutedEventArgs e)
         {
+            if (Author.SelectedItem != null)
+            {
+                DataRowView row = Author.SelectedItem as DataRowView;
+                //System.Windows.MessageBox.Show(row["Imie"].ToString() + " " + row["Nazwisko"].ToString());
+                string author;
+                author = row["Imie"].ToString() + " " + row["Nazwisko"].ToString();
 
+                ((AddBookWindow)Application.Current.MainWindow).authorTB.Text = author;
+
+                this.Close();
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Nic nie wybrano!!!");
+            }
         }
 
         private void Author_Loaded(object sender, RoutedEventArgs e)
