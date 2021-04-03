@@ -56,9 +56,9 @@
                             <DataGridTextColumn Header="Imię" Binding="{Binding Path=IMIE}"/>
                             <DataGridTextColumn Header="Nazwisko" Binding="{Binding Path=NAZWISKO}"/>
                             <DataGridTextColumn Header="Login" Binding="{Binding Path=LOGIN}"/>
-                            <DataGridTextColumn Header="Hasło" Binding="{Binding Path=HASLO}"/>
                             <DataGridTextColumn Header="E-mail" Binding="{Binding Path=EMAIL}"/>
-                            <DataGridTextColumn Header="Data urodzenia" Binding="{Binding Path=DATA_URODZENIA}"/>
+                            <DataGridTextColumn Header="Data urodzenia" Binding="{Binding Path=DATA_URODZENIAtext}"/>
+                            <DataGridTextColumn Header="Hasło" Binding="{Binding Path=HASLO}"/>
                         </DataGrid.Columns>
                     </DataGrid>
 
@@ -79,8 +79,8 @@
                             <DataGridTextColumn Header="Imię" Binding="{Binding Path=IMIE}"/>
                             <DataGridTextColumn Header="Nazwisko" Binding="{Binding Path=NAZWISKO}"/>
                             <DataGridTextColumn Header="Login" Binding="{Binding Path=LOGIN}"/>
-                            <DataGridTextColumn Header="Hasło" Binding="{Binding Path=HASLO}"/>
                             <DataGridTextColumn Header="Rola" Binding="{Binding Path=ROLA}"/>
+                            <DataGridTextColumn Header="Hasło" Binding="{Binding Path=HASLO}"/>
                         </DataGrid.Columns>
                     </DataGrid>
 

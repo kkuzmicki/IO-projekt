@@ -77,7 +77,22 @@ namespace IO_projekt
         }
         private void refreshUserList()
         {
-
+            UsersDG.Items.Clear();
+            using (var transaction = connection.BeginTransaction())
+            {
+                using (var command = new FbCommand("select ID_UZYTKOWNIK, LOGIN, HASLO, IMIE, NAZWISKO, EMAIL, DATA_URODZENIA from UZYTKOWNICY order by NAZWISKO", connection, transaction))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            IDataRecord record = reader;
+                            User tmp = new User((int)record[0], (string)record[1], (string)record[2], (string)record[3], (string)record[4], (string)record[5], (DateTime)record[6]);
+                            UsersDG.Items.Add(tmp);
+                        }
+                    }
+                }
+            }
         }
         private void refreshWorkerList()
         {
