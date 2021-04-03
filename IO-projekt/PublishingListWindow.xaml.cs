@@ -26,10 +26,10 @@ namespace IO_projekt
         public FbConnection connection;
         string sql = "select ID_WYDAWNICTWO, WYDAWNICTWO from WYDAWNICTWA";
 
-        public PublishingListWindow(AddBookWindow MainWindow)
+        public PublishingListWindow(AddBookWindow MainWindow) // USUN TEN KOMENTARZ
         {
             InitializeComponent();
-            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen; 
             BindData();
             this.MainWindow = MainWindow;
         }
