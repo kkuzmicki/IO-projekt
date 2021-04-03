@@ -325,11 +325,12 @@ namespace IO_projekt
                 }
             }
         }
-
-        private void btnBook_Click(object sender, RoutedEventArgs e)
+        private void btnRent_Click(object sender, RoutedEventArgs e)
         {
-
+            RentWindow rentWindow = new RentWindow();
+            rentWindow.ShowDialog();
         }
+
         private void btnReturn_Click(object sender, RoutedEventArgs e)
         {
 
@@ -379,6 +380,14 @@ namespace IO_projekt
                         refreshRoleList();
                         CurrentDG = RolesDG;
                         break;
+                }
+                if(tabItem == "UsersTI")
+                {
+                    btnRent.IsEnabled = true;
+                }
+                else
+                {
+                    btnRent.IsEnabled = false;
                 }
             }
         }

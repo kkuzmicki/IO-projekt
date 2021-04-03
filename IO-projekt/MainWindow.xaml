@@ -11,8 +11,8 @@
             <Button Name="btnAdd" Click="btnAdd_Click" Margin="5">Dodaj</Button>
             <Button Name="btnEdit" Click="btnEdit_Click" Margin="5">Edytuj</Button>
             <Button Name="btnDelete" Click="btnDelete_Click" Margin="5">Usuń</Button>
-            <Button Name="btnBook" Click="btnBook_Click" Margin="5">Zarezerwuj</Button>
-            <Button Name="btnReturn" Click="btnReturn_Click" Margin="5">Zwróć</Button>
+            <Button Name="btnRent" Click="btnRent_Click" IsEnabled="False" Margin="5">Wypożycz</Button>
+            <Button Name="btnReturn" Click="btnReturn_Click" Visibility="Hidden" Margin="5">Zwróć</Button>
         </StackPanel>
         <TabControl SelectionChanged="TabControl_SelectionChanged">
             <TabItem x:Name="BooksTI" Header="Lista książek">

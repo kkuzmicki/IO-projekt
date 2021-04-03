@@ -53,7 +53,6 @@ namespace IO_projekt
                 connection.Open();
                 adapter.SelectCommand = command;
                 adapter.Fill(dtSet, "WYDAWNICTWA");
-
                 Publishing.DataContext = dtSet;
             }
         }
