@@ -42,6 +42,7 @@ namespace IO_projekt
             csb.ServerType = FbServerType.Default;
             connection = new FbConnection(csb.ToString());
             connection.Open();
+            genreID = 0;
             BindData();
         }
 
@@ -59,6 +60,8 @@ namespace IO_projekt
             csb.ServerType = FbServerType.Default;
             connection = new FbConnection(csb.ToString());
             connection.Open();
+
+            genreID = book.ID_KATEGORIA;
 
             BindData();
 
@@ -84,7 +87,15 @@ namespace IO_projekt
                 IDataRecord record = reader;
                 dataTable.Rows.Add((int)record[0], (string)record[1]);
             }
+
             genreTB.ItemsSource = dataTable.DefaultView;
+
+            if(genreID != 0)
+            {
+                DataRow[] row = dataTable.Select("ID_KATEGORIA = " + genreID);
+                int index = dataTable.Rows.IndexOf(row[0]);
+                genreTB.SelectedIndex = index;
+            }
         }
 
         private void btnAuthor_Click(object sender, RoutedEventArgs e)
@@ -101,7 +112,12 @@ namespace IO_projekt
 
         private void btnAccept_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine(genreTB.SelectedIndex);
+            Console.WriteLine("Tytuł: " + titleTB.Text);
+            Console.WriteLine("ID kategorii: " + genreID);
+            Console.WriteLine("Autor: " + authorNameTB.Text + ' ' + authorSurnameTB.Text);
+            Console.WriteLine("Wydawnictwo: " + publishingTB.Text);
+            Console.WriteLine("Rok wydania: " + publishingUpDownControl.Value);
+            Console.WriteLine("Ilość: " + quantityUpDownControl.Value);
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
