@@ -96,6 +96,9 @@
     <Compile Include="PublishingListWindow.xaml.cs">
       <DependentUpon>PublishingListWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RentABook.xaml.cs">
+      <DependentUpon>RentABook.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RentWindow.xaml.cs">
       <DependentUpon>RentWindow.xaml</DependentUpon>
     </Compile>
@@ -127,6 +130,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PublishingListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RentABook.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
