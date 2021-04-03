@@ -26,22 +26,13 @@ namespace IO_projekt
         public FbCommand command;
         public FbConnection connection;
         string sql = "select ID_KATEGORIA, KATEGORIA from KATEGORIE";
+        int genreID;
 
         public AddBookWindow()
         {
             InitializeComponent();
-            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
-            BindData();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             isEdit = false;
-        }
-
-        public AddBookWindow(Book book)
-        {
-            isEdit = true;
-        }
-
-        private void BindData()
-        {
             FbConnectionStringBuilder csb = new FbConnectionStringBuilder();
             csb.DataSource = "localhost";
             csb.Port = 3050;
@@ -49,28 +40,51 @@ namespace IO_projekt
             csb.UserID = "SYSDBA";
             csb.Password = "masterkey";
             csb.ServerType = FbServerType.Default;
+            connection = new FbConnection(csb.ToString());
+            connection.Open();
+            BindData();
+        }
 
+        public AddBookWindow(Book book)
+        {
+            InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            isEdit = true;
+            FbConnectionStringBuilder csb = new FbConnectionStringBuilder();
+            csb.DataSource = "localhost";
+            csb.Port = 3050;
+            csb.Database = @"C:\bazy\IO.FDB";
+            csb.UserID = "SYSDBA";
+            csb.Password = "masterkey";
+            csb.ServerType = FbServerType.Default;
+            connection = new FbConnection(csb.ToString());
+            connection.Open();
+
+            BindData();
+
+            titleTB.Text = book.TYTUL;
+
+            publishingTB.Text = book.WYDAWNICTWO;
+            publishingUpDownControl.Value = book.ROK_WYDANIA;
+            quantityUpDownControl.Value = book.ILOSC;
+        }
+
+        private void BindData()
+        {
             DataTable dataTable = new DataTable();
-
-            using (connection = new FbConnection(csb.ToString()))
-            {
-                command = new FbCommand(sql, connection);
+            command = new FbCommand(sql, connection);
                 
-                connection.Open();
-                var reader = command.ExecuteReader();
+            var reader = command.ExecuteReader();
 
-                dataTable.Columns.Add("ID_KATEGORIA", typeof(int));
-                dataTable.Columns.Add("KATEGORIA", typeof(string));
+            dataTable.Columns.Add("ID_KATEGORIA", typeof(int));
+            dataTable.Columns.Add("KATEGORIA", typeof(string));
 
-                while (reader.Read())
-                {
-                    IDataRecord record = reader;
-                    dataTable.Rows.Add((int)record[0], (string)record[1]);
-                }
-
-                genreTB.ItemsSource = dataTable.DefaultView;
-
+            while (reader.Read())
+            {
+                IDataRecord record = reader;
+                dataTable.Rows.Add((int)record[0], (string)record[1]);
             }
+            genreTB.ItemsSource = dataTable.DefaultView;
         }
 
         private void btnAuthor_Click(object sender, RoutedEventArgs e)
@@ -87,7 +101,7 @@ namespace IO_projekt
 
         private void btnAccept_Click(object sender, RoutedEventArgs e)
         {
-
+            Console.WriteLine(genreTB.SelectedIndex);
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -103,9 +117,9 @@ namespace IO_projekt
         private void genreTB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count == 0) return;
-
             DataRowView row = (DataRowView)e.AddedItems[0];
-            MessageBox.Show("ID: " + row["ID_KATEGORIA"] + "\nKATEGORIA: " + row["KATEGORIA"]);
+            //MessageBox.Show("ID: " + row["ID_KATEGORIA"] + "\nKATEGORIA: " + row["KATEGORIA"]);
+            genreID = (int)row["ID_KATEGORIA"];
         }
     }
 }

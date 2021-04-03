@@ -190,12 +190,24 @@ namespace IO_projekt
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            AddBookWindow addWindow = new AddBookWindow();
-            addWindow.ShowDialog();
+            switch(CurrentDG.Name.ToString())
+            {
+                case "Books":
+                    AddBookWindow addWindow = new AddBookWindow();
+                    addWindow.ShowDialog();
+                    break;
+            }
         }
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-
+            if (CurrentDG.SelectedItem == null) return;
+            switch (CurrentDG.SelectedItem.GetType().ToString())
+            {
+                case "IO_projekt.Book":
+                    AddBookWindow addWindow = new AddBookWindow((Book)CurrentDG.SelectedItem);
+                    addWindow.ShowDialog();
+                    break;
+            }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
