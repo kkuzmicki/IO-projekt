@@ -10,20 +10,16 @@
         <DataTemplate x:Key="PublishingListBox">
             <DockPanel Margin="3">
                 <TextBlock Text="{Binding WYDAWNICTWO}">
-                    <TextBlock.InputBindings>
-                        <!--<MouseBinding MouseAction="LeftDoubleClick" 
-                                      Command="ApplicationCommands.Close"
-                                      CommandParameter="Left Double Click"/>-->
-
-                        <MouseBinding MouseAction="LeftDoubleClick"
-                          Command="{Binding MessageCommand}"
-                          CommandParameter="Left Double Click"/>
-                    </TextBlock.InputBindings>                    
                 </TextBlock>
             </DockPanel>
         </DataTemplate>
     </Window.Resources>
 
-    <ListBox Margin="10,15" Name="Publishing" ItemsSource="{Binding Tables[0]}" ItemTemplate="{StaticResource PublishingListBox}" HorizontalContentAlignment="Stretch"/>
+    <DockPanel Height="auto">
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Center">
+            <Button Name="btnAccept" Click="btnAccept_Click" Grid.Column="0" Margin="5,0,5,10" Padding="6.3" Width="100">Wybierz</Button>
+        </StackPanel>
+        <ListBox Margin="10,15,10,10" Name="Publishing" ItemsSource="{Binding Tables[0]}" ItemTemplate="{StaticResource PublishingListBox}" HorizontalContentAlignment="Stretch" Loaded="Publishing_Loaded"/>
+    </DockPanel>
 
 </Window>
