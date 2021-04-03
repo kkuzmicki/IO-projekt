@@ -22,7 +22,7 @@ namespace IO_projekt
     /// </summary>
     public partial class AddBookWindow : Window
     {
-
+        bool isEdit;
         public FbCommand command;
         public FbConnection connection;
         string sql = "select ID_KATEGORIA, KATEGORIA from KATEGORIE";
@@ -32,6 +32,12 @@ namespace IO_projekt
             InitializeComponent();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             BindData();
+            isEdit = false;
+        }
+
+        public AddBookWindow(Book book)
+        {
+            isEdit = true;
         }
 
         private void BindData()

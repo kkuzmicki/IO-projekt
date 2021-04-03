@@ -61,7 +61,6 @@
                             <DataGridTextColumn Header="Hasło" Binding="{Binding Path=HASLO}"/>
                         </DataGrid.Columns>
                     </DataGrid>
-
                 </Grid>
             </TabItem>
             <TabItem x:Name="WorkersTI" Header="Lista pracowników">
@@ -83,7 +82,6 @@
                             <DataGridTextColumn Header="Hasło" Binding="{Binding Path=HASLO}"/>
                         </DataGrid.Columns>
                     </DataGrid>
-
                 </Grid>
             </TabItem>
             <TabItem x:Name="AuthorsTI" Header="Lista autorów">
@@ -102,7 +100,6 @@
                             <DataGridTextColumn Header="Nazwisko" Binding="{Binding Path=NAZWISKO}"/>
                         </DataGrid.Columns>
                     </DataGrid>
-
                 </Grid>
             </TabItem>
             <TabItem x:Name="PublishersTI" Header="Lista wydawnictw">
@@ -137,7 +134,6 @@
                             <DataGridTextColumn Header="Nazwa kategorii" Binding="{Binding Path=KATEGORIA}"/>
                         </DataGrid.Columns>
                     </DataGrid>
-
                 </Grid>
             </TabItem>
             <TabItem x:Name="RolesTI" Header="Lista ról">
@@ -155,7 +151,6 @@
                             <DataGridTextColumn Header="Nazwa roli" Binding="{Binding Path=ROLA}"/>
                         </DataGrid.Columns>
                     </DataGrid>
-
                 </Grid>
             </TabItem>
         </TabControl>

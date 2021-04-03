@@ -49,7 +49,6 @@ namespace IO_projekt
             }
         }
 
-
         private void refreshBookList()
         {
             Books.Items.Clear();

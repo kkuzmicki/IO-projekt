@@ -96,6 +96,9 @@
     <Compile Include="PublishingListWindow.xaml.cs">
       <DependentUpon>PublishingListWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RentWindow.xaml.cs">
+      <DependentUpon>RentWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Role.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Worker.cs" />
@@ -124,6 +127,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PublishingListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
