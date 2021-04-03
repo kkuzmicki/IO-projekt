@@ -15,27 +15,16 @@ using System.Windows.Shapes;
 namespace IO_projekt
 {
     /// <summary>
-    /// Interaction logic for RentWindow.xaml
+    /// Logika interakcji dla klasy RentABook.xaml
     /// </summary>
-    public partial class RentWindow : Window
+    public partial class RentABook : Window
     {
-        public RentWindow()
+        public RentABook()
         {
             InitializeComponent();
         }
 
-        private void rentB_Click(object sender, RoutedEventArgs e)
-        {
-            RentABook addWindow = new RentABook();
-            addWindow.ShowDialog();
-        }
-
-        private void editB_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void returnB_Click(object sender, RoutedEventArgs e)
+        private void btnChoose_Click(object sender, RoutedEventArgs e)
         {
 
         }

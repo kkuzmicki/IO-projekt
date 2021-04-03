@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IO_projekt"
         mc:Ignorable="d"
-        Title="Wypożyczanie" Height="450" Width="800" WindowStartupLocation="CenterScreen" Topmost="True">
+        Title="Wypożyczanie" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" VerticalAlignment="Center">
             <Button Name="rentB" Margin="5" Click="rentB_Click">Wypożycz</Button>
