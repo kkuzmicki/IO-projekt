@@ -26,7 +26,7 @@ namespace IO_projekt
         public MainWindow(Int32 accountType)
         {
             InitializeComponent();
-            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             FbConnectionStringBuilder csb = new FbConnectionStringBuilder();
             csb.DataSource = "localhost";
             csb.Port = 3050;
@@ -65,7 +65,6 @@ namespace IO_projekt
                         while (reader.Read())
                         {
                             IDataRecord record = reader;
-                            Console.WriteLine("heh");
                             Book tmp = new Book((int)record[0], (string)record[1], (int)record[2], (string)record[3], (int)record[4], (string)record[5],
                                 (int)record[6], (string)record[7], (int)record[8], (int)record[9]);
                             Books.Items.Add(tmp);
