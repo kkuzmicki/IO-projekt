@@ -33,11 +33,6 @@ namespace IO_projekt
             BindData();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            BindData();
-        }
-
         private void BindData()
         {
 
@@ -63,9 +58,28 @@ namespace IO_projekt
             }
         }
 
-        void LeftDoubleClick(object sender, RoutedEventArgs e)
+        private void Publishing_Loaded(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            BindData();
+        }
+
+        private void btnAccept_Click(object sender, RoutedEventArgs e)
+        {
+            if (Publishing.SelectedItem != null)
+            {
+                DataRowView row = Publishing.SelectedItem as DataRowView;
+                //System.Windows.MessageBox.Show(row["Imie"].ToString() + " " + row["Nazwisko"].ToString());
+                string publishing;
+                publishing = row["Wydawnictwo"].ToString();
+
+                ((AddBookWindow)Application.Current.MainWindow).publishingTB.Text = publishing;
+
+                this.Close();
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Nic nie wybrano!!!");
+            }
         }
     }
 }
