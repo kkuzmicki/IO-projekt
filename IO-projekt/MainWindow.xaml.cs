@@ -197,6 +197,10 @@ namespace IO_projekt
                     addWindow.ShowDialog();
                     refreshBookList();
                     break;
+                case "UsersDG":
+                    AddUserWindow addWindow2 = new AddUserWindow();
+                    addWindow2.ShowDialog();
+                    break;
             }
         }
         private void btnEdit_Click(object sender, RoutedEventArgs e)
