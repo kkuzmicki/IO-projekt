@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IO_projekt
 {
-    class Author
+    public class Author
     {
         public int ID_AUTOR { get; set; }
         public string IMIE { get; set; }

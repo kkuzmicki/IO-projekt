@@ -24,12 +24,22 @@ namespace IO_projekt
         public AddUserWindow()
         {
             InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             isEdit = false;
         }
 
         public AddUserWindow(User user)
         {
+            InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             isEdit = true;
+            AddUserW.Title = "Edycja czytelnika";
+            HeaderL.Text = "Edycja czytelnika";
+            nameTB.Text = user.IMIE;
+            surnameTB.Text = user.NAZWISKO;
+            loginTB.Text = user.LOGIN;
+            emailTB.Text = user.EMAIL;
+            birthdateDP.SelectedDate = user.DATA_URODZENIA;
         }
 
         private void btnAccept_Click(object sender, RoutedEventArgs e)

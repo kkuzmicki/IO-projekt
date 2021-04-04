@@ -197,9 +197,41 @@ namespace IO_projekt
                     addWindow.ShowDialog();
                     refreshBookList();
                     break;
+
                 case "UsersDG":
                     AddUserWindow addWindow2 = new AddUserWindow();
                     addWindow2.ShowDialog();
+                    refreshUserList();
+                    break;
+
+                case "AuthorsDG":
+                    AddAuthorWindow addWindow3 = new AddAuthorWindow();
+                    addWindow3.ShowDialog();
+                    refreshAuthorList();
+                    break;
+
+                case "PublishersDG":
+                    AddPublisherWindow addWindow4 = new AddPublisherWindow();
+                    addWindow4.ShowDialog();
+                    refreshPublishersList();
+                    break;
+
+                case "RolesDG":
+                    AddRoleWindow addWindow5 = new AddRoleWindow();
+                    addWindow5.ShowDialog();
+                    refreshRoleList();
+                    break;
+
+                case "WorkersDG":
+                    AddWorkerWindow addWindow6 = new AddWorkerWindow();
+                    addWindow6.ShowDialog();
+                    refreshWorkerList();
+                    break;
+
+                case "CategoriesDG":
+                    AddCategoryWindow addWindow7 = new AddCategoryWindow();
+                    addWindow7.ShowDialog();
+                    refreshCategoryList();
                     break;
             }
         }
@@ -209,8 +241,45 @@ namespace IO_projekt
             switch (CurrentDG.SelectedItem.GetType().ToString())
             {
                 case "IO_projekt.Book":
-                    AddBookWindow addWindow = new AddBookWindow((Book)CurrentDG.SelectedItem);
-                    addWindow.ShowDialog();
+                    AddBookWindow editWindow = new AddBookWindow((Book)CurrentDG.SelectedItem);
+                    editWindow.ShowDialog();
+                    refreshBookList();
+                    break;
+
+                case "IO_projekt.User":
+                    AddUserWindow editWindow2 = new AddUserWindow((User)CurrentDG.SelectedItem);
+                    editWindow2.ShowDialog();
+                    refreshUserList();
+                    break;
+
+                case "IO_projekt.Author":
+                    AddAuthorWindow editWindow3 = new AddAuthorWindow((Author)CurrentDG.SelectedItem);
+                    editWindow3.ShowDialog();
+                    refreshAuthorList();
+                    break;
+
+                case "IO_projekt.Publisher":
+                    AddPublisherWindow editWindow4 = new AddPublisherWindow((Publisher)CurrentDG.SelectedItem);
+                    editWindow4.ShowDialog();
+                    refreshPublishersList();
+                    break;
+
+                case "IO_projekt.Role":
+                    AddRoleWindow editWindow5 = new AddRoleWindow((Role)CurrentDG.SelectedItem);
+                    editWindow5.ShowDialog();
+                    refreshRoleList();
+                    break;
+
+                case "IO_projekt.Worker":
+                    AddWorkerWindow editWindow6 = new AddWorkerWindow((Worker)CurrentDG.SelectedItem);
+                    editWindow6.ShowDialog();
+                    refreshWorkerList();
+                    break;
+
+                case "IO_projekt.Category":
+                    AddCategoryWindow editWindow7 = new AddCategoryWindow((Category)CurrentDG.SelectedItem);
+                    editWindow7.ShowDialog();
+                    refreshCategoryList();
                     break;
             }
         }

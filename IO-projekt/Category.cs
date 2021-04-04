@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IO_projekt
 {
-    class Category
+    public class Category
     {
         public int ID_KATEGORIA { get; set; }
         public string KATEGORIA { get; set; }
