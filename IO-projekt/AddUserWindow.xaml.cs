@@ -15,24 +15,28 @@ using System.Windows.Shapes;
 namespace IO_projekt
 {
     /// <summary>
-    /// Interaction logic for RentWindow.xaml
+    /// Logika interakcji dla klasy AddUserWindow.xaml
     /// </summary>
-    public partial class RentWindow : Window
+    public partial class AddUserWindow : Window
     {
-        public RentWindow()
+        public AddUserWindow()
         {
             InitializeComponent();
         }
 
-        private void rentB_Click(object sender, RoutedEventArgs e)
+        private void btnAccept_Click(object sender, RoutedEventArgs e)
         {
-            RentABook addWindow = new RentABook();
-            addWindow.ShowDialog();
+
         }
 
-        private void returnB_Click(object sender, RoutedEventArgs e)
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
+            this.Close();
+        }
 
+        private void birthdateDP_Initialized(object sender, EventArgs e)
+        {
+            birthdateDP.DisplayDateEnd = DateTime.Now;
         }
     }
 }

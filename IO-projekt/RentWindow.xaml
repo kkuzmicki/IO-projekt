@@ -9,7 +9,6 @@
     <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" VerticalAlignment="Center">
             <Button Name="rentB" Margin="5" Click="rentB_Click">Wypożycz</Button>
-            <Button Name="editB" Margin="5" Click="editB_Click">Edytuj</Button>
             <Button Name="returnB" Margin="5" Click="returnB_Click">Oddaj</Button>
         </StackPanel>
         <TabControl>

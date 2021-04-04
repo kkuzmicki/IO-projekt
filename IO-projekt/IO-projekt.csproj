@@ -80,6 +80,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddUserWindow.xaml.cs">
+      <DependentUpon>AddUserWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Author.cs" />
     <Compile Include="AuthorListWindow.xaml.cs">
       <DependentUpon>AuthorListWindow.xaml</DependentUpon>
@@ -106,6 +109,10 @@
     <Compile Include="User.cs" />
     <Compile Include="Worker.cs" />
     <Page Include="AddBookWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddUserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
