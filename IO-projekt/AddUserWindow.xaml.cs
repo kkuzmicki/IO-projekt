@@ -23,6 +23,7 @@ namespace IO_projekt
     {
         bool isEdit;
         FbConnection connection;
+        int idUser;
 
         public AddUserWindow()
         {
@@ -61,6 +62,7 @@ namespace IO_projekt
             csb.ServerType = FbServerType.Default;
             connection = new FbConnection(csb.ToString());
             connection.Open();
+            idUser = user.ID_UZYTKOWNIK;
         }
 
         private void btnAccept_Click(object sender, RoutedEventArgs e)
@@ -118,6 +120,17 @@ namespace IO_projekt
             {
                 MessageBox.Show("Podane hasło już istnieje!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
+            }
+            int result2;
+            if (isEdit == false) 
+            {
+                command = new FbCommand("insert into UZYTKOWNICY (LOGIN, IMIE, NAZWISKO, EMAIL, DATA_URODZENIA, HASLO) values ('" + loginTB.Text + "', '" + nameTB.Text + "', '" +
+                    surnameTB.Text + "', '" + emailTB.Text + "', '" + birthdateDP.SelectedDate + "', '" + sha256_hash(passwordTB.Text) + "')", connection);
+                result2 = command.ExecuteNonQuery();
+            }
+            else
+            {
+
             }
         }
 
