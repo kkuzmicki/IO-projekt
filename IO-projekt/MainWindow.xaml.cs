@@ -195,6 +195,7 @@ namespace IO_projekt
                 case "Books":
                     AddBookWindow addWindow = new AddBookWindow();
                     addWindow.ShowDialog();
+                    refreshBookList();
                     break;
             }
         }

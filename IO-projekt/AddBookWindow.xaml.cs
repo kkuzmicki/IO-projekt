@@ -27,6 +27,7 @@ namespace IO_projekt
         public FbConnection connection;
         string sql = "select ID_KATEGORIA, KATEGORIA from KATEGORIE";
         int genreID;
+        int bookID;
 
         public AddBookWindow()
         {
@@ -67,9 +68,25 @@ namespace IO_projekt
 
             titleTB.Text = book.TYTUL;
 
+            using (var transaction = connection.BeginTransaction())
+            {
+                using (var command2 = new FbCommand("select IMIE, NAZWISKO from AUTORZY where ID_AUTOR = " + book.ID_AUTOR, connection, transaction))
+                {
+                    using (var reader = command2.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            IDataRecord record = reader;
+                            authorNameTB.Text = (string)record[0];
+                            authorSurnameTB.Text = (string)record[1];
+                        }
+                    }
+                }
+            }
             publishingTB.Text = book.WYDAWNICTWO;
             publishingUpDownControl.Value = book.ROK_WYDANIA;
             quantityUpDownControl.Value = book.ILOSC;
+            bookID = book.ID_KSIAZKA;
         }
 
         private void BindData()
@@ -112,12 +129,151 @@ namespace IO_projekt
 
         private void btnAccept_Click(object sender, RoutedEventArgs e)
         {
+
+            if(titleTB.Text == null)
+            {
+                MessageBox.Show("Uzupełnij tytuł!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            else if(genreID == 0)
+            {
+                MessageBox.Show("Wybierz kategorię!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            else if (authorNameTB.Text == null || authorSurnameTB.Text == null)
+            {
+                MessageBox.Show("Podaj autora!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            else if (publishingTB.Text == null)
+            {
+                MessageBox.Show("Uzupełnij wydawnictwo!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            else if (publishingUpDownControl.Value == null)
+            {
+                MessageBox.Show("Podaj rok wydania!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            else if (quantityUpDownControl.Value == null)
+            {
+                MessageBox.Show("Podaj ilość!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             Console.WriteLine("Tytuł: " + titleTB.Text);
             Console.WriteLine("ID kategorii: " + genreID);
             Console.WriteLine("Autor: " + authorNameTB.Text + ' ' + authorSurnameTB.Text);
             Console.WriteLine("Wydawnictwo: " + publishingTB.Text);
             Console.WriteLine("Rok wydania: " + publishingUpDownControl.Value);
             Console.WriteLine("Ilość: " + quantityUpDownControl.Value);
+
+            int idAuthor = 0;
+
+            using (var transaction = connection.BeginTransaction())
+            {
+                using (var command2 = new FbCommand("select ID_AUTOR from AUTORZY where IMIE = '" + authorNameTB.Text + "' AND NAZWISKO = '" + authorSurnameTB.Text + "'", connection, transaction))
+                {
+                    using (var reader = command2.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            IDataRecord record = reader;
+                            idAuthor = (int)record[0];
+                        }
+                    }
+                }
+            }
+
+            if(idAuthor == 0)
+            {
+                command = new FbCommand("insert into AUTORZY (IMIE, NAZWISKO) values ('" + authorNameTB.Text + "', '" + authorSurnameTB.Text + "')", connection);
+                command.ExecuteNonQuery();
+                using (var transaction = connection.BeginTransaction())
+                {
+                    using (var command2 = new FbCommand("select ID_AUTOR from AUTORZY where IMIE = '" + authorNameTB.Text + "' AND NAZWISKO = '" + authorSurnameTB + "'", connection, transaction))
+                    {
+                        using (var reader = command2.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                IDataRecord record = reader;
+                                idAuthor = (int)record[0];
+                            }
+                        }
+                    }
+                }
+            }
+
+            Console.WriteLine("ID autora: " + idAuthor);
+
+            int idPublishing = 0;
+
+            using (var transaction = connection.BeginTransaction())
+            {
+                using (var command2 = new FbCommand("select ID_WYDAWNICTWO from WYDAWNICTWA where WYDAWNICTWO = '" + publishingTB.Text + "'", connection, transaction))
+                {
+                    using (var reader = command2.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            IDataRecord record = reader;
+                            idPublishing = (int)record[0];
+                        }
+                    }
+                }
+            }
+
+            if (idPublishing == 0)
+            {
+                command = new FbCommand("insert into WYDAWNICTWA (WYDAWNICTWO) values ('" + publishingTB.Text + "');", connection);
+                command.ExecuteNonQuery();
+                using (var transaction = connection.BeginTransaction())
+                {
+                    using (var command2 = new FbCommand("select ID_WYDAWNICTWO from WYDAWNICTWA where WYDAWNICTWO = '" + publishingTB.Text + "'", connection, transaction))
+                    {
+                        using (var reader = command2.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                IDataRecord record = reader;
+                                idPublishing = (int)record[0];
+                            }
+                        }
+                    }
+                }
+            }
+
+            if(isEdit)
+            {
+                command = new FbCommand("update KSIAZKA set TYTUL = '" + titleTB.Text + "', ID_KATEGORIA = " + genreID + ", ID_AUTOR = " + idAuthor + ", ID_WYDAWNICTWO = " +
+                    idPublishing + ", ROK_WYDANIA = " + publishingUpDownControl.Value + ", ILOSC = " + quantityUpDownControl.Value + " where ID_KSIAZKA = " + bookID, connection);
+                int result = command.ExecuteNonQuery();
+                if(result == 0)
+                {
+                    MessageBox.Show("Nie udało się zmodyfikować pozycji!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    MessageBox.Show("Operacja zakończona powodzeniem!", "Sukces", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                this.Close();
+            }
+            else
+            {
+                command = new FbCommand("insert into KSIAZKA (TYTUL, ID_KATEGORIA, ID_AUTOR, ID_WYDAWNICTWO, ROK_WYDANIA, ILOSC) values ('" + titleTB.Text + 
+                    "', " + genreID + ", " + idAuthor + ", " + idPublishing + ", " + publishingUpDownControl.Value + ", " + quantityUpDownControl.Value + ");", connection);
+                int result = command.ExecuteNonQuery();
+                if (result == 0)
+                {
+                    MessageBox.Show("Nie udało się dodać pozycji!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    MessageBox.Show("Operacja zakończona powodzeniem!", "Sukces", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                this.Close();
+            }
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
