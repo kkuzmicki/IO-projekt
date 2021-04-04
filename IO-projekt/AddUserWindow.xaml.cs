@@ -19,9 +19,17 @@ namespace IO_projekt
     /// </summary>
     public partial class AddUserWindow : Window
     {
+        bool isEdit;
+
         public AddUserWindow()
         {
             InitializeComponent();
+            isEdit = false;
+        }
+
+        public AddUserWindow(User user)
+        {
+            isEdit = true;
         }
 
         private void btnAccept_Click(object sender, RoutedEventArgs e)

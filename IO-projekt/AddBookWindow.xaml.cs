@@ -87,6 +87,8 @@ namespace IO_projekt
             publishingUpDownControl.Value = book.ROK_WYDANIA;
             quantityUpDownControl.Value = book.ILOSC;
             bookID = book.ID_KSIAZKA;
+            AddBookW.Title = "Edycja książki";
+            headerL.Text = "Edycja książki";
         }
 
         private void BindData()
@@ -130,7 +132,7 @@ namespace IO_projekt
         private void btnAccept_Click(object sender, RoutedEventArgs e)
         {
 
-            if(titleTB.Text == null)
+            if(titleTB.Text == null || titleTB.Text == "")
             {
                 MessageBox.Show("Uzupełnij tytuł!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -140,12 +142,12 @@ namespace IO_projekt
                 MessageBox.Show("Wybierz kategorię!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            else if (authorNameTB.Text == null || authorSurnameTB.Text == null)
+            else if (authorNameTB.Text == null || authorSurnameTB.Text == null || authorNameTB.Text == "" || authorSurnameTB.Text == "")
             {
                 MessageBox.Show("Podaj autora!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            else if (publishingTB.Text == null)
+            else if (publishingTB.Text == null || publishingTB.Text == "")
             {
                 MessageBox.Show("Uzupełnij wydawnictwo!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -191,7 +193,7 @@ namespace IO_projekt
                 command.ExecuteNonQuery();
                 using (var transaction = connection.BeginTransaction())
                 {
-                    using (var command2 = new FbCommand("select ID_AUTOR from AUTORZY where IMIE = '" + authorNameTB.Text + "' AND NAZWISKO = '" + authorSurnameTB + "'", connection, transaction))
+                    using (var command2 = new FbCommand("select ID_AUTOR from AUTORZY where IMIE = '" + authorNameTB.Text + "' AND NAZWISKO = '" + authorSurnameTB.Text + "'", connection, transaction))
                     {
                         using (var reader = command2.ExecuteReader())
                         {
