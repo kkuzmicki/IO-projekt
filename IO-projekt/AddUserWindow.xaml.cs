@@ -98,7 +98,7 @@ namespace IO_projekt
                 return;
             }
 
-            FbCommand command = new FbCommand("select COUNT(*) from UZYTKOWNICY where EMAIL = '" + emailTB.Text + "'");
+            FbCommand command = new FbCommand("select COUNT(*) from UZYTKOWNICY where EMAIL = '" + emailTB.Text + "'", connection);
             Int32 result = (Int32)command.ExecuteScalar();
             if(result != 0)
             {
@@ -106,7 +106,7 @@ namespace IO_projekt
                 return;
             }
 
-            command = new FbCommand("select COUNT(*) from UZYTKOWNICY where LOGIN = '" + loginTB.Text + "'");
+            command = new FbCommand("select COUNT(*) from UZYTKOWNICY where LOGIN = '" + loginTB.Text + "'", connection);
             result = (Int32)command.ExecuteScalar();
             if (result != 0)
             {
@@ -114,7 +114,7 @@ namespace IO_projekt
                 return;
             }
 
-            command = new FbCommand("select COUNT(*) from UZYTKOWNICY where HASLO = '" + sha256_hash(passwordTB.Text) + "'");
+            command = new FbCommand("select COUNT(*) from UZYTKOWNICY where HASLO = '" + sha256_hash(passwordTB.Text) + "'", connection);
             result = (Int32)command.ExecuteScalar();
             if (result != 0)
             {
@@ -122,15 +122,29 @@ namespace IO_projekt
                 return;
             }
             int result2;
-            if (isEdit == false) 
+            DateTime dt = (DateTime)birthdateDP.SelectedDate;
+            string dateString = dt.Day.ToString() + '.' + dt.Month.ToString() + '.' + dt.Year.ToString();
+
+            if (isEdit == false)
             {
                 command = new FbCommand("insert into UZYTKOWNICY (LOGIN, IMIE, NAZWISKO, EMAIL, DATA_URODZENIA, HASLO) values ('" + loginTB.Text + "', '" + nameTB.Text + "', '" +
-                    surnameTB.Text + "', '" + emailTB.Text + "', '" + birthdateDP.SelectedDate + "', '" + sha256_hash(passwordTB.Text) + "')", connection);
-                result2 = command.ExecuteNonQuery();
+                    surnameTB.Text + "', '" + emailTB.Text + "', '" + dateString + "', '" + sha256_hash(passwordTB.Text) + "')", connection);
             }
             else
             {
-
+                command = new FbCommand("update UZYTKOWNICY set LOGIN = '" + loginTB.Text + "', IMIE = '" + nameTB.Text + "', NAZWISKO = '" + surnameTB.Text + "', EMAIL = '" +
+                    emailTB.Text + "', DATA_URODZENIA = '" + dateString + "', HASLO = '" + sha256_hash(passwordTB.Text) + "'", connection);
+            }
+            result2 = command.ExecuteNonQuery();
+            if(result2 > 0)
+            {
+                MessageBox.Show("Operacja zakończona powodzeniem!", "Sukces", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Operacja nie powiodła się!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Close();
             }
         }
 
