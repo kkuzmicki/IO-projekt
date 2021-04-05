@@ -5,8 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IO_projekt"
         mc:Ignorable="d"
-        Title="Dodawanie roli" Height="450" Width="800">
+        Title="Dodawanie roli" Height="230" Width="300" FontSize="14" ResizeMode="CanMinimize" Background="White" Foreground="#FF3F3F46" BorderBrush="#FF3F3F46" HorizontalAlignment="Center" VerticalAlignment="Center" WindowStartupLocation="CenterScreen">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="HeaderL" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="Dodawanie roli" FontSize="36" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="Nazwa:" VerticalAlignment="Center"/>
+        <TextBox Name="nameTB" Grid.Row="2" Grid.Column="2" Margin="10,5,0,5" VerticalAlignment="Center" MinWidth="200"/>
+
+        <UniformGrid Rows="1" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="10" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+            <Button Name="btnAccept" Click="btnAccept_Click" Grid.Column="0" Margin="5" Padding="6.3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Zatwierdź</Button>
+            <Button Name="btnCancel" Click="btnCancel_Click" Grid.Column="1" Margin="5" Padding="6.3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">Anuluj</Button>
+        </UniformGrid>
         
     </Grid>
 </Window>
