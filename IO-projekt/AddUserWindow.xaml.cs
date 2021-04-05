@@ -39,6 +39,7 @@ namespace IO_projekt
             csb.ServerType = FbServerType.Default;
             connection = new FbConnection(csb.ToString());
             connection.Open();
+            idUser = 0;
         }
 
         public AddUserWindow(User user)
@@ -98,7 +99,7 @@ namespace IO_projekt
                 return;
             }
 
-            FbCommand command = new FbCommand("select COUNT(*) from UZYTKOWNICY where EMAIL = '" + emailTB.Text + "'", connection);
+            FbCommand command = new FbCommand("select COUNT(*) from UZYTKOWNICY where EMAIL = '" + emailTB.Text + "' AND ID_UZYTKOWNIK <> " + idUser, connection);
             Int32 result = (Int32)command.ExecuteScalar();
             if(result != 0)
             {
@@ -106,7 +107,7 @@ namespace IO_projekt
                 return;
             }
 
-            command = new FbCommand("select COUNT(*) from UZYTKOWNICY where LOGIN = '" + loginTB.Text + "'", connection);
+            command = new FbCommand("select COUNT(*) from UZYTKOWNICY where LOGIN = '" + loginTB.Text + "' AND ID_UZYTKOWNIK <> " + idUser, connection);
             result = (Int32)command.ExecuteScalar();
             if (result != 0)
             {
@@ -114,7 +115,7 @@ namespace IO_projekt
                 return;
             }
 
-            command = new FbCommand("select COUNT(*) from UZYTKOWNICY where HASLO = '" + sha256_hash(passwordTB.Text) + "'", connection);
+            command = new FbCommand("select COUNT(*) from UZYTKOWNICY where HASLO = '" + sha256_hash(passwordTB.Text) + "' AND ID_UZYTKOWNIK <> " + idUser, connection);
             result = (Int32)command.ExecuteScalar();
             if (result != 0)
             {
@@ -133,7 +134,7 @@ namespace IO_projekt
             else
             {
                 command = new FbCommand("update UZYTKOWNICY set LOGIN = '" + loginTB.Text + "', IMIE = '" + nameTB.Text + "', NAZWISKO = '" + surnameTB.Text + "', EMAIL = '" +
-                    emailTB.Text + "', DATA_URODZENIA = '" + dateString + "', HASLO = '" + sha256_hash(passwordTB.Text) + "'", connection);
+                    emailTB.Text + "', DATA_URODZENIA = '" + dateString + "', HASLO = '" + sha256_hash(passwordTB.Text) + "' where ID_UZYTKOWNIK = " + idUser, connection);
             }
             result2 = command.ExecuteNonQuery();
             if(result2 > 0)

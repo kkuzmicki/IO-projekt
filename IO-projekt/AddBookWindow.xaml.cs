@@ -25,7 +25,7 @@ namespace IO_projekt
         bool isEdit;
         public FbCommand command;
         public FbConnection connection;
-        string sql = "select ID_KATEGORIA, KATEGORIA from KATEGORIE";
+        string sql = "select ID_KATEGORIA, KATEGORIA from KATEGORIE order by KATEGORIA";
         int genreID;
         int bookID;
 
