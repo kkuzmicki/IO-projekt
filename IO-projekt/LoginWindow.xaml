@@ -23,7 +23,12 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="welcomeL" Grid.Column="1" Grid.Row="1" TextAlignment="Center" Text="Dzień dobry!" Grid.ColumnSpan="2" FontSize="22" FontFamily="Segoe UI" Margin="0, 0, 0, 5" FontWeight="DemiBold"/>
+        <StackPanel  Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" Orientation="Horizontal">
+            <TextBlock x:Name="welcomeL" TextAlignment="Center" Text="Dzień dobry!" Grid.ColumnSpan="2" FontSize="22" FontFamily="Segoe UI" Margin="0, 0, 0, 5" FontWeight="DemiBold"/>
+            <Button x:Name="settingsB" Width="25" Height="25" Margin="10,0" Click="settingsB_Click">
+                <Image Source="https://icon-library.com/images/gear-settings-icon/gear-settings-icon-1.jpg" Stretch="Fill"/>
+            </Button>
+        </StackPanel>
         <TextBlock Grid.Column="1" Grid.Row="2" TextAlignment="Center" Text="Login:" VerticalAlignment="Center" Margin="5,0" MinWidth="40" HorizontalAlignment="Center" />
         <TextBox x:Name="loginTB" Grid.Column="2" Grid.Row="2" Width="100" Height="22" HorizontalAlignment="Left" Margin="0,5,10,5" Text="admin"/>
         <TextBlock Grid.Column="1" Grid.Row="3" TextAlignment="Center" Text="Hasło:" VerticalAlignment="Center" Margin="5,0" MinWidth="40" HorizontalAlignment="Center" />

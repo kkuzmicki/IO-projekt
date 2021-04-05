@@ -15,23 +15,13 @@ using System.Windows.Shapes;
 namespace IO_projekt
 {
     /// <summary>
-    /// Interaction logic for AddWorkerWindow.xaml
+    /// Logika interakcji dla klasy SettingsWindow.xaml
     /// </summary>
-    public partial class AddWorkerWindow : Window
+    public partial class SettingsWindow : Window
     {
-        bool isEdit;
-        public AddWorkerWindow()
+        public SettingsWindow()
         {
             InitializeComponent();
-            WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            isEdit = false;
-        }
-
-        public AddWorkerWindow(Worker worker)
-        {
-            InitializeComponent();
-            WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            isEdit = true;
         }
 
         private void btnAccept_Click(object sender, RoutedEventArgs e)
@@ -42,16 +32,6 @@ namespace IO_projekt
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
-
-        private void roleCB_Loaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void roleCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

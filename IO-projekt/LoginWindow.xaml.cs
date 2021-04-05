@@ -83,5 +83,11 @@ namespace IO_projekt
             Console.WriteLine(Sb.ToString());
             return Sb.ToString();
         }
+
+        private void settingsB_Click(object sender, RoutedEventArgs e)
+        {
+            SettingsWindow settingsWindow = new SettingsWindow();
+            settingsWindow.ShowDialog();
+        }
     }
 }
