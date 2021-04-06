@@ -479,12 +479,14 @@ namespace IO_projekt
 
         private void infoMI_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Sekcja 6 ©Copyright", "Informacje");
+            MessageBox.Show("SEKCJA 6 ©COPYRIGHT\n\nKamil Kuźmicki\nMateusz Rączka\nStanisław Sobczak\nDamian Zubrzycki", "Informacje", MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
 
         private void logoutMI_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("New");
+            LoginWindow loginWindow = new LoginWindow();
+            this.Close();
+            loginWindow.Show();
         }
     }
 }
