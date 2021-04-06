@@ -14,14 +14,20 @@
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="2"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
 
-        <TextBlock x:Name="HeaderL" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="Wydawnictwo" FontSize="36" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+        <!--<TextBlock x:Name="HeaderL" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="Dodawanie wydawnictwa" FontSize="30" Margin="0,0,0,10" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center"/>-->
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Vertical">
+            <TextBlock x:Name="HeaderL" Text="Dodawanie" FontSize="30" HorizontalAlignment="Center"/>
+            <TextBlock Text="wydawnictwa" FontSize="30" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+        </StackPanel>
+        
 
         <TextBlock Grid.Row="2" Grid.Column="1" Text="Nazwa:" VerticalAlignment="Center"/>
         <TextBox Name="nameTB" Grid.Row="2" Grid.Column="2" Margin="10,5,0,5" VerticalAlignment="Center" MinWidth="200"/>
