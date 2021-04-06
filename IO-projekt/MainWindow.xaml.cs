@@ -476,5 +476,15 @@ namespace IO_projekt
                 }
             }
         }
+
+        private void infoMI_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Sekcja 6 ©Copyright", "Informacje");
+        }
+
+        private void logoutMI_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("New");
+        }
     }
 }

@@ -54,7 +54,7 @@ namespace IO_projekt
             connection = new FbConnection(csb.ToString());
             connection.Open();
             id = publisher.ID_WYDAWNICTWO;
-            HeaderL.Text = "Edycja wydawnictwa";
+            HeaderL.Text = "Edycja";
             AddPublisherW.Title = "Edycja wydawnictwa";
             nameTB.Text = publisher.WYDAWNICTWO;
         }
