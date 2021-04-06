@@ -55,7 +55,6 @@ namespace IO_projekt
             nameTB.Text = worker.IMIE;
             surnameTB.Text = worker.NAZWISKO;
             loginTB.Text = worker.LOGIN;
-            passwordTB.Text = worker.HASLO;
             FbConnectionStringBuilder csb = new FbConnectionStringBuilder();
             csb.DataSource = "localhost";
             csb.Port = 3050;
@@ -113,6 +112,11 @@ namespace IO_projekt
                 MessageBox.Show("Uzupełnij login!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            else if (idRole == 0)
+            {
+                MessageBox.Show("Wybierz kategorię!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             else if (passwordTB.Text == "")
             {
                 MessageBox.Show("Podaj hasło!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -138,12 +142,12 @@ namespace IO_projekt
             int result2;
             if (isEdit == false)
             {
-                command = new FbCommand("insert into PRACOWNICY (LOGIN, IMIE, NAZWISKO, HASLO) values ('" + loginTB.Text + "', '" + nameTB.Text + "', '" +
-                    surnameTB.Text + "', '" + AddUserWindow.sha256_hash(passwordTB.Text) + "')", connection);
+                command = new FbCommand("insert into PRACOWNICY (LOGIN, IMIE, NAZWISKO, ID_ROLA, HASLO) values ('" + loginTB.Text + "', '" + nameTB.Text + "', '" +
+                    surnameTB.Text + "', '" + idRole + "', '" + AddUserWindow.sha256_hash(passwordTB.Text) + "')", connection);
             }
             else
             {
-                command = new FbCommand("update PRACOWNICY set LOGIN = '" + loginTB.Text + "', IMIE = '" + nameTB.Text + "', NAZWISKO = '" + surnameTB.Text + "', HASLO = '" + AddUserWindow.sha256_hash(passwordTB.Text) + "' where ID_PRACOWNIK = " + idUser, connection);
+                command = new FbCommand("update PRACOWNICY set LOGIN = '" + loginTB.Text + "', IMIE = '" + nameTB.Text + "', NAZWISKO = '" + surnameTB.Text + "', ID_ROLA = '" + idRole + "', HASLO = '" + AddUserWindow.sha256_hash(passwordTB.Text) + "' where ID_PRACOWNIK = " + idUser, connection);
             }
 
             result2 = command.ExecuteNonQuery();
