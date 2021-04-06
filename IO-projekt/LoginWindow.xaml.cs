@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -36,17 +37,66 @@ namespace IO_projekt
             {
                 welcomeL.Text = "Dobry wieczór!";
             }
+            try
+            {
+                if (File.Exists("CONF.txt"))
+                {
+                    StreamReader sr = new StreamReader("CONF.txt");
+                    Application.Current.Properties["dataSource"] = sr.ReadLine();
+                    Application.Current.Properties["dataBase"] = sr.ReadLine();
+                    Application.Current.Properties["userID"] = sr.ReadLine();
+                    Application.Current.Properties["password"] = sr.ReadLine();
+                    sr.Close();
+                }
+                else
+                {
+                    Application.Current.Properties["dataSource"] = "localhost";
+                    Application.Current.Properties["dataBase"] = @"C:\bazy\IO.FDB";
+                    Application.Current.Properties["userID"] = "SYSDBA";
+                    Application.Current.Properties["password"] = "masterkey";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Błąd pliku: \n" + ex.Message, "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                Application.Current.Properties["dataSource"] = "localhost";
+                Application.Current.Properties["dataBase"] = @"C:\bazy\IO.FDB";
+                Application.Current.Properties["userID"] = "SYSDBA";
+                Application.Current.Properties["password"] = "masterkey";
+            }
+            makeConnection();
+        }
 
+        private void makeConnection()
+        {
             FbConnectionStringBuilder csb = new FbConnectionStringBuilder();
-            csb.DataSource = "localhost";
+            //csb.DataSource = "localhost";
+            //csb.Port = 3050;
+            //csb.Database = @"C:\bazy\IO.FDB";
+            //csb.UserID = "SYSDBA";
+            //csb.Password = "masterkey";
+            //csb.ServerType = FbServerType.Default;
+            csb.DataSource = (string)Application.Current.Properties["dataSource"];
             csb.Port = 3050;
-            csb.Database = @"C:\bazy\IO.FDB";
-            csb.UserID = "SYSDBA";
-            csb.Password = "masterkey";
+            csb.Database = (string)Application.Current.Properties["dataBase"];
+            csb.UserID = (string)Application.Current.Properties["userID"];
+            csb.Password = (string)Application.Current.Properties["password"];
             csb.ServerType = FbServerType.Default;
-
             connection = new FbConnection(csb.ToString());
-            connection.Open();
+            try
+            {
+                connection.Open();
+                loginTB.IsEnabled = true;
+                passwordPB.IsEnabled = true;
+                loginB.IsEnabled = true;
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("Błąd połączenia z bazą danych:\n" + e.Message, "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                loginTB.IsEnabled = false;
+                passwordPB.IsEnabled = false;
+                loginB.IsEnabled = false;
+            }
         }
 
         private void loginB_click(object sender, RoutedEventArgs e)
@@ -88,6 +138,8 @@ namespace IO_projekt
         {
             SettingsWindow settingsWindow = new SettingsWindow();
             settingsWindow.ShowDialog();
+            connection.Close();
+            makeConnection();
         }
     }
 }

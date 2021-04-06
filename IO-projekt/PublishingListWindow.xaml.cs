@@ -29,7 +29,7 @@ namespace IO_projekt
         public PublishingListWindow(AddBookWindow MainWindow) // USUN TEN KOMENTARZ
         {
             InitializeComponent();
-            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen; 
+            WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             BindData();
             this.MainWindow = MainWindow;
         }
