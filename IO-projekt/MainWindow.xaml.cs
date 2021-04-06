@@ -28,11 +28,11 @@ namespace IO_projekt
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             FbConnectionStringBuilder csb = new FbConnectionStringBuilder();
-            csb.DataSource = "localhost";
+            csb.DataSource = (string)Application.Current.Properties["dataSource"];
             csb.Port = 3050;
-            csb.Database = @"C:\bazy\IO.FDB";
-            csb.UserID = "SYSDBA";
-            csb.Password = "masterkey";
+            csb.Database = (string)Application.Current.Properties["dataBase"];
+            csb.UserID = (string)Application.Current.Properties["userID"];
+            csb.Password = (string)Application.Current.Properties["password"];
             csb.ServerType = FbServerType.Default;
 
             connection = new FbConnection(csb.ToString());
