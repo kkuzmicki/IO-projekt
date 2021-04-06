@@ -18,10 +18,10 @@
                         <DataGrid x:Name="Books" AlternatingRowBackground="AliceBlue" CanUserAddRows="False" SelectionMode="Single" IsReadOnly="True">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Tytuł" Binding="{Binding Path=TYTUL}"/>
-                                <DataGridTextColumn Header="Kategoria" Binding="{Binding Path=KATEGORIA}"/>
                                 <DataGridTextColumn Header="Autor" Binding="{Binding Path=AUTOR}"/>
-                                <DataGridTextColumn Header="Wydawnictwo" Binding="{Binding Path=WYDAWNICTWO}"/>
-                                <DataGridTextColumn Header="Rok wydania" Binding="{Binding Path=ROK_WYDANIA}"/>
+                                <DataGridTextColumn Header="Data wypożyczenia" Binding="{Binding Path=DATA_WYPOZYCZENIA}"/>
+                                <DataGridTextColumn Header="Data oddania" Binding="{Binding Path=DATA_ODDANIA}"/>
+                                <DataGridTextColumn Header="Pracownik" Binding="{Binding Path=PRACOWNIK}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
@@ -33,10 +33,10 @@
                         <DataGrid x:Name="Archivies" AlternatingRowBackground="AliceBlue" CanUserAddRows="False" SelectionMode="Single" IsReadOnly="True">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Tytuł" Binding="{Binding Path=TYTUL}"/>
-                                <DataGridTextColumn Header="Kategoria" Binding="{Binding Path=KATEGORIA}"/>
                                 <DataGridTextColumn Header="Autor" Binding="{Binding Path=AUTOR}"/>
-                                <DataGridTextColumn Header="Wydawnictwo" Binding="{Binding Path=WYDAWNICTWO}"/>
-                                <DataGridTextColumn Header="Rok wydania" Binding="{Binding Path=ROK_WYDANIA}"/>
+                                <DataGridTextColumn Header="Data wypożyczenia" Binding="{Binding Path=DATA_WYPOZYCZENIA}"/>
+                                <DataGridTextColumn Header="Data oddania" Binding="{Binding Path=DATA_ODDANIA}"/>
+                                <DataGridTextColumn Header="Pracownik" Binding="{Binding Path=PRACOWNIK}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
