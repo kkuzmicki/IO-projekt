@@ -24,7 +24,7 @@ namespace IO_projekt
         AddBookWindow MainWindow;
         public FbCommand command;
         public FbConnection connection;
-        string sql = "select ID_WYDAWNICTWO, WYDAWNICTWO from WYDAWNICTWA";
+        string sql = "select ID_WYDAWNICTWO, WYDAWNICTWO from WYDAWNICTWA order by WYDAWNICTWO";
 
         public PublishingListWindow(AddBookWindow MainWindow) // USUN TEN KOMENTARZ
         {

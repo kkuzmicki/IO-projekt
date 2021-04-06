@@ -74,7 +74,7 @@ namespace IO_projekt
                 return;
             }
             FbCommand command = new FbCommand("select count(*) from AUTORZY where IMIE = '" + nameTB.Text + "' and NAZWISKO = '" + surnameTB.Text + "' " +
-                "and ID_KATEGORIA <> " + id, connection);
+                "and ID_AUTOR <> " + id, connection);
             Int32 result = (Int32)command.ExecuteScalar();
             if (result > 0)
             {

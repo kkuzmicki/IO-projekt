@@ -26,7 +26,7 @@ namespace IO_projekt
         AddBookWindow MainWindow;
         public FbCommand command;
         public FbConnection connection;
-        string sql = "select ID_AUTOR, IMIE, NAZWISKO from AUTORZY";
+        string sql = "select ID_AUTOR, IMIE, NAZWISKO from AUTORZY order by NAZWISKO";
 
         public AuthorListWindow(AddBookWindow MainWindow)
         {
