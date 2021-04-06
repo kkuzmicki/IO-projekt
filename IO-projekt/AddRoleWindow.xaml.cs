@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FirebirdSql.Data.FirebirdClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,11 +21,23 @@ namespace IO_projekt
     public partial class AddRoleWindow : Window
     {
         bool isEdit;
+        int id;
+        FbConnection connection;
         public AddRoleWindow()
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             isEdit = false;
+            FbConnectionStringBuilder csb = new FbConnectionStringBuilder();
+            csb.DataSource = "localhost";
+            csb.Port = 3050;
+            csb.Database = @"C:\bazy\IO.FDB";
+            csb.UserID = "SYSDBA";
+            csb.Password = "masterkey";
+            csb.ServerType = FbServerType.Default;
+            connection = new FbConnection(csb.ToString());
+            connection.Open();
+            id = 0;
         }
 
         public AddRoleWindow(Role role)
@@ -32,10 +45,59 @@ namespace IO_projekt
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             isEdit = true;
+            FbConnectionStringBuilder csb = new FbConnectionStringBuilder();
+            csb.DataSource = "localhost";
+            csb.Port = 3050;
+            csb.Database = @"C:\bazy\IO.FDB";
+            csb.UserID = "SYSDBA";
+            csb.Password = "masterkey";
+            csb.ServerType = FbServerType.Default;
+            connection = new FbConnection(csb.ToString());
+            connection.Open();
+
+            id = role.ID_ROLA;
+            nameTB.Text = role.ROLA;
+            HeaderL.Text = "Edycja kategorii";
+            AddRoleW.Title = "Edycja kategorii";
         }
         private void btnAccept_Click(object sender, RoutedEventArgs e)
         {
+            if (nameTB.Text == "")
+            {
+                MessageBox.Show("Podaj nazwę roli!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
+            FbCommand command = new FbCommand("select count(*) from ROLE where ROLA = '" + nameTB.Text + "' and ID_ROLA <> " + id, connection);
+            Int32 result = (Int32)command.ExecuteScalar();
+            if (result > 0)
+            {
+                MessageBox.Show("Podana kategoria już istnieje!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            else
+            {
+                if (isEdit)
+                {
+                    command = new FbCommand("update ROLE set ROLA = '" + nameTB.Text + "' where ID_ROLA = " + id, connection);
+                    result = command.ExecuteNonQuery();
+                }
+                else
+                {
+                    command = new FbCommand("insert into ROLE (ROLA) values ('" + nameTB.Text + "')", connection);
+                    result = command.ExecuteNonQuery();
+                }
+            }
+            if (result != 0)
+            {
+                MessageBox.Show("Operacja powiodła się!", "Sukces", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Operacja nie powiodła się!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+            this.Close();
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
