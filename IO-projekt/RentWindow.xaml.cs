@@ -1,6 +1,7 @@
 ﻿using FirebirdSql.Data.FirebirdClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,8 @@ namespace IO_projekt
     public partial class RentWindow : Window
     {
         FbConnection connection;
-        public RentWindow()
+        int id;
+        public RentWindow(int id)
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -35,6 +37,31 @@ namespace IO_projekt
 
             connection = new FbConnection(csb.ToString());
             connection.Open();
+
+            this.id = id;
+        }
+
+        private void refreshRented()
+        {
+            RentalsDG.Items.Clear();
+            using (var transaction = connection.BeginTransaction())
+            {
+                using (var command = new FbCommand("select ID_WYPOZYCZENIE, " +
+                    "TYTUL, a.IMIE || ' ' || a.NAZWISKO, DATA_WYPOZYCZENIA, DATA_ODDANIA, p.IMIE || ' ' || p.NAZWISKO " +
+                    "from WYPOZYCZENIA w inner join KSIAZKA k on w.ID_KSIAZKA = k.ID_KSIAZKA inner join AUTORZY a on k.ID_AUTOR = a.ID_AUTOR inner join " +
+                    "PRACOWNICY p on w.ID_PRACOWNIK = p.ID_PRACOWNIK where w.ID_UZYTKOWNIK = " + id + " order by DATA_WYPOZYCZENIA", connection, transaction))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            IDataRecord record = reader;
+                            Rental tmp = new Rental((int)record[0], (string)record[1], (string)record[2], (DateTime)record[3], (DateTime)record[4], (string)record[5]);
+                            RentalsDG.Items.Add(tmp);
+                        }
+                    }
+                }
+            }
         }
 
         private void rentB_Click(object sender, RoutedEventArgs e)

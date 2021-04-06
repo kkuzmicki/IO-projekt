@@ -412,8 +412,12 @@ namespace IO_projekt
         }
         private void btnRent_Click(object sender, RoutedEventArgs e)
         {
-            RentWindow rentWindow = new RentWindow();
-            rentWindow.ShowDialog();
+            if (UsersDG.SelectedItem != null)
+            {
+                User tmp = (User)UsersDG.SelectedItem;
+                RentWindow rentWindow = new RentWindow(tmp.ID_UZYTKOWNIK);
+                rentWindow.ShowDialog();
+            }
         }
 
         private void btnReturn_Click(object sender, RoutedEventArgs e)

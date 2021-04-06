@@ -15,7 +15,7 @@
             <TabItem x:Name="BooksTI" Header="Wypożyczone">
                 <ScrollViewer>
                     <Grid>
-                        <DataGrid x:Name="Books" AlternatingRowBackground="AliceBlue" CanUserAddRows="False" SelectionMode="Single" IsReadOnly="True">
+                        <DataGrid x:Name="RentalsDG" AlternatingRowBackground="AliceBlue" CanUserAddRows="False" SelectionMode="Single" IsReadOnly="True">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Tytuł" Binding="{Binding Path=TYTUL}"/>
                                 <DataGridTextColumn Header="Kategoria" Binding="{Binding Path=KATEGORIA}"/>

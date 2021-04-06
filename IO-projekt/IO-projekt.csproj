@@ -117,6 +117,7 @@
     <Compile Include="RentABook.xaml.cs">
       <DependentUpon>RentABook.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Rental.cs" />
     <Compile Include="RentWindow.xaml.cs">
       <DependentUpon>RentWindow.xaml</DependentUpon>
     </Compile>
