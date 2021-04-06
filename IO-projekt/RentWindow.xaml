@@ -19,8 +19,8 @@
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Tytuł" Binding="{Binding Path=TYTUL}"/>
                                 <DataGridTextColumn Header="Autor" Binding="{Binding Path=AUTOR}"/>
-                                <DataGridTextColumn Header="Data wypożyczenia" Binding="{Binding Path=DATA_WYPOZYCZENIA}"/>
-                                <DataGridTextColumn Header="Data oddania" Binding="{Binding Path=DATA_ODDANIA}"/>
+                                <DataGridTextColumn Header="Data wypożyczenia" Binding="{Binding Path=DATA_WYPOZYCZENIAtext}"/>
+                                <DataGridTextColumn Header="Data oddania" Binding="{Binding Path=DATA_ODDANIAtext}"/>
                                 <DataGridTextColumn Header="Pracownik" Binding="{Binding Path=PRACOWNIK}"/>
                             </DataGrid.Columns>
                         </DataGrid>

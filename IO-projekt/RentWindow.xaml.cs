@@ -39,6 +39,7 @@ namespace IO_projekt
             connection.Open();
 
             this.id = id;
+            refreshRented();
         }
 
         private void refreshRented()
