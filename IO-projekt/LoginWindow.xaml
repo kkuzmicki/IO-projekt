@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IO_projekt"
         mc:Ignorable="d"
-        Title="BibliotekOS" Height="200" Width="220" ResizeMode="CanMinimize" FontFamily="Segoe UI" Icon="logo.ico">
+        Title="BibliotekOS" Height="200" Width="230" ResizeMode="CanMinimize" FontFamily="Segoe UI" Icon="logo.ico">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
@@ -25,14 +25,14 @@
         </Grid.RowDefinitions>
         <StackPanel  Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center">
             <TextBlock x:Name="welcomeL" TextAlignment="Center" Text="Dzień dobry!" Grid.ColumnSpan="2" FontSize="22" FontFamily="Segoe UI" Margin="0, 0, 0, 5" FontWeight="DemiBold"/>
-            <Button x:Name="settingsB" Width="25" Height="25" Margin="5,0,0,0" Click="settingsB_Click">
+            <Button x:Name="settingsB" Width="30" Height="30" Margin="5,0,0,0" Click="settingsB_Click">
                 <Image Source="https://icon-library.com/images/gear-settings-icon/gear-settings-icon-1.jpg" Stretch="Fill"/>
             </Button>
         </StackPanel>
         <TextBlock Grid.Column="1" Grid.Row="2" TextAlignment="Center" Text="Login:" VerticalAlignment="Center" Margin="5,0" MinWidth="40" HorizontalAlignment="Center" />
-        <TextBox x:Name="loginTB" Grid.Column="2" Grid.Row="2" Width="100" Height="22" HorizontalAlignment="Left" Margin="0,5,10,5" Text="admin"/>
+        <TextBox x:Name="loginTB" Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" Height="22" Margin="0,5,10,5" Text="admin"/>
         <TextBlock Grid.Column="1" Grid.Row="3" TextAlignment="Center" Text="Hasło:" VerticalAlignment="Center" Margin="5,0" MinWidth="40" HorizontalAlignment="Center" />
-        <PasswordBox x:Name="passwordPB" Grid.Column="2" Grid.Row="3" PasswordChar="*" Width="100" Height="22" HorizontalAlignment="Left" Margin="0,5,10,5" Password="123"/>
+        <PasswordBox x:Name="passwordPB" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" PasswordChar="*" Height="22" Margin="0,5,10,5" Password="123"/>
         <TextBlock x:Name="errorTB" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Consolas" FontSize="10" TextDecorations="{x:Null}" />
         <Button x:Name="loginB" Grid.Column="1" Grid.Row="5" Content="Zaloguj" Grid.ColumnSpan="3" Grid.RowSpan="2" Height="25" Width="100" Click="loginB_click" IsDefault="True" VerticalAlignment="Center" HorizontalAlignment="Center"/>
     </Grid>
