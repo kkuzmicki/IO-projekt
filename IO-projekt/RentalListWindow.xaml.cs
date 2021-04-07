@@ -22,8 +22,9 @@ namespace IO_projekt
     public partial class RentalListWindow : Window
     {
         FbConnection connection;
+        int idBook;
 
-        public RentalListWindow()
+        public RentalListWindow(int idBook)
         {
             InitializeComponent();
             FbConnectionStringBuilder csb = new FbConnectionStringBuilder();
@@ -36,29 +37,45 @@ namespace IO_projekt
 
             connection = new FbConnection(csb.ToString());
             connection.Open();
+            this.idBook = idBook;
 
-            refreshRentalList();
+
         }
 
-        private void refreshRentalList()
+        /*private void refreshRentalList()
+        {
+            
+        }*/
+
+        private void RentalsDG_Loaded(object sender, RoutedEventArgs e)
         {
             RentalsDG.Items.Clear();
             using (var transaction = connection.BeginTransaction())
             {
-                using (var command = new FbCommand("select r.ID_REZERWACJA, r.ID_UZYTKOWNIK, ks.ID_KSIAZKA, DATA_REZERWACJI, u.LOGIN, u.IMIE || ' ' || u.NAZWISKO, u.EMAIL, u.DATA_URODZENIA" +
+                using (var command = new FbCommand("select DATA_REZERWACJI, u.IMIE || ' ' || u.NAZWISKO " +
                 "from REZERWACJE r " +
                 "inner join UZYTKOWNICY u on r.ID_UZYTKOWNIK = u.ID_UZYTKOWNIK " +
                 "inner join KSIAZKA ks on r.ID_KSIAZKA = ks.ID_KSIAZKA " +
-                "order by NAZWISKO", connection, transaction))
+                "where ks.ID_KSIAZKA = " + idBook +
+                " order by NAZWISKO", connection, transaction))
                 {
-                    using (var reader = command.ExecuteReader())
+                    int result = command.ExecuteNonQuery();
+                    if (result > 0)
                     {
-                        while (reader.Read())
+                        using (var reader = command.ExecuteReader())
                         {
-                            IDataRecord record = reader;
-                            User tmp = new User((int)record[0], (string)record[1], (string)record[2], (string)record[3], (string)record[4], (string)record[5], (DateTime)record[6]);
-                            RentalsDG.Items.Add(tmp);
+                            while (reader.Read())
+                            {
+                                IDataRecord record = reader;
+                                Reservations tmp = new Reservations((DateTime)record[0], (string)record[1]);
+                                RentalsDG.Items.Add(tmp);
+                            }
                         }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Brak rezerwacji", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                        this.Close();
                     }
                 }
             }

@@ -124,6 +124,7 @@
     <Compile Include="RentWindow.xaml.cs">
       <DependentUpon>RentWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Reservations.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>

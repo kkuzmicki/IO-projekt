@@ -22,7 +22,6 @@ namespace IO_projekt
     public partial class RentABook : Window
     {
         FbConnection connection;
-        DataGrid CurrentDG;
         int userID;
 
         public RentABook(int id)

@@ -9,14 +9,10 @@
         Title="Rezerwacje" Height="450" Width="800">
     <ScrollViewer>
         <Grid>
-            <DataGrid x:Name="RentalsDG" AlternatingRowBackground="AliceBlue" CanUserAddRows="False" SelectionMode="Single" IsReadOnly="True">
+            <DataGrid x:Name="RentalsDG" AlternatingRowBackground="AliceBlue" CanUserAddRows="False" SelectionMode="Single" IsReadOnly="True" Loaded="RentalsDG_Loaded">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Data rezerwacji" Binding="{Binding Path=DATA_REZERWACJItext}"/>
-                    <DataGridTextColumn Header="Imię" Binding="{Binding Path=NAME}"/>
-                    <DataGridTextColumn Header="Nazwisko" Binding="{Binding Path=SURNAME}"/>
-                    <DataGridTextColumn Header="Login" Binding="{Binding Path=LOGIN}"/>
-                    <DataGridTextColumn Header="E-mail" Binding="{Binding Path=EMAIL}"/>
-                    <DataGridTextColumn Header="Data urodzenia" Binding="{Binding Path=DATA_URODZENIAtext}"/>
+                    <DataGridTextColumn Header="Użytkownik" Binding="{Binding Path=UZYTKOWNIK}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

@@ -495,7 +495,9 @@ namespace IO_projekt
 
         private void btnRental_Click(object sender, RoutedEventArgs e)
         {
-            RentalListWindow rentalWindow = new RentalListWindow();
+            if (CurrentDG == null) return;
+            Book book = (Book)CurrentDG.SelectedItem;
+            RentalListWindow rentalWindow = new RentalListWindow(book.ID_KSIAZKA);
             rentalWindow.ShowDialog();
         }
     }
