@@ -111,6 +111,8 @@ namespace IO_projekt
                 MainWindow objSecondWindow = new MainWindow(id);
                 this.Close();
                 objSecondWindow.Show();
+                Int32 id2 = (Int32)new FbCommand("select ID_PRACOWNIK from PRACOWNICY where LOGIN = '" + loginTB.Text + "' AND HASLO = '" + pass + "'", connection).ExecuteScalar();
+                Application.Current.Properties["workerID"] = id2;
             }
             else
             {

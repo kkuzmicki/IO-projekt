@@ -40,6 +40,30 @@ namespace IO_projekt
 
             this.id = id;
             refreshRented();
+            refreshArchivies();
+        }
+
+        private void refreshArchivies()
+        {
+            Archivies.Items.Clear();
+            using (var transaction = connection.BeginTransaction())
+            {
+                using (var command = new FbCommand("select ID_WYPOZYCZENIE, " +
+                    "TYTUL, a.IMIE || ' ' || a.NAZWISKO, DATA_WYPOZYCZENIA, DATA_ODDANIA, p.IMIE || ' ' || p.NAZWISKO " +
+                    "from WYPOZYCZENIA w inner join KSIAZKA k on w.ID_KSIAZKA = k.ID_KSIAZKA inner join AUTORZY a on k.ID_AUTOR = a.ID_AUTOR inner join " +
+                    "PRACOWNICY p on w.ID_PRACOWNIK = p.ID_PRACOWNIK where w.ID_UZYTKOWNIK = " + id + " and CZY_ODDANE = 1 order by DATA_WYPOZYCZENIA", connection, transaction))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            IDataRecord record = reader;
+                            Rental tmp = new Rental((int)record[0], (string)record[1], (string)record[2], (DateTime)record[3], (DateTime)record[4], (string)record[5]);
+                            Archivies.Items.Add(tmp);
+                        }
+                    }
+                }
+            }
         }
 
         private void refreshRented()
@@ -50,7 +74,7 @@ namespace IO_projekt
                 using (var command = new FbCommand("select ID_WYPOZYCZENIE, " +
                     "TYTUL, a.IMIE || ' ' || a.NAZWISKO, DATA_WYPOZYCZENIA, DATA_ODDANIA, p.IMIE || ' ' || p.NAZWISKO " +
                     "from WYPOZYCZENIA w inner join KSIAZKA k on w.ID_KSIAZKA = k.ID_KSIAZKA inner join AUTORZY a on k.ID_AUTOR = a.ID_AUTOR inner join " +
-                    "PRACOWNICY p on w.ID_PRACOWNIK = p.ID_PRACOWNIK where w.ID_UZYTKOWNIK = " + id + " order by DATA_WYPOZYCZENIA", connection, transaction))
+                    "PRACOWNICY p on w.ID_PRACOWNIK = p.ID_PRACOWNIK where w.ID_UZYTKOWNIK = " + id + " and CZY_ODDANE = 0 order by DATA_WYPOZYCZENIA", connection, transaction))
                 {
                     using (var reader = command.ExecuteReader())
                     {
@@ -67,13 +91,42 @@ namespace IO_projekt
 
         private void rentB_Click(object sender, RoutedEventArgs e)
         {
-            RentABook addWindow = new RentABook();
+            RentABook addWindow = new RentABook(id);
             addWindow.ShowDialog();
+            refreshRented();
+            refreshArchivies();
         }
 
         private void returnB_Click(object sender, RoutedEventArgs e)
         {
+            if (RentalsDG.SelectedItem == null) return;
+            Rental tmp = (Rental)RentalsDG.SelectedItem;
+            string today = DateTime.Now.Day + "." + DateTime.Now.Month + "." + DateTime.Now.Year;
+            string bonusTxt = "";
+            if(tmp.DATA_ODDANIA < DateTime.Now)
+            {
+                double diff = (DateTime.Now.Date - tmp.DATA_ODDANIA.Date).TotalDays;
+                bonusTxt = "\nTermin przekroczony o " + diff + " dni!";
+            }
 
+            MessageBoxResult result = MessageBox.Show("Czy na pewno chcesz oddać książkę:\n" + tmp.TYTUL + "?" + bonusTxt,
+                    "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
+            if (result == MessageBoxResult.Yes)
+            {
+                FbCommand command = new FbCommand("update WYPOZYCZENIA set CZY_ODDANE = 1, DATA_ODDANIA = '" + today + "', ID_PRACOWNIK = " +
+                    Application.Current.Properties["workerID"] + " where ID_WYPOZYCZENIE = " + tmp.ID_WYPOZYCZENIE, connection);
+                int result2 = command.ExecuteNonQuery();
+                if(result2 > 0)
+                {
+                    MessageBox.Show("Pomyślnie zwrócono książkę!", "Potwierdzenie", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Nie udało się zwrócić książki!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            refreshRented();
+            refreshArchivies();
         }
     }
 }

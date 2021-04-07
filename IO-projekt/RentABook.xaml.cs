@@ -23,8 +23,9 @@ namespace IO_projekt
     {
         FbConnection connection;
         DataGrid CurrentDG;
+        int userID;
 
-        public RentABook()
+        public RentABook(int id)
         {
             InitializeComponent();
             FbConnectionStringBuilder csb = new FbConnectionStringBuilder();
@@ -39,7 +40,10 @@ namespace IO_projekt
             connection.Open();
 
             refreshBookList();
+            userID = id;
         }
+
+        
 
         private void refreshBookList()
         {
@@ -68,7 +72,29 @@ namespace IO_projekt
 
         private void btnChoose_Click(object sender, RoutedEventArgs e)
         {
-
+            if(BooksDG.SelectedItem != null)
+            {
+                Book tmp = (Book)BooksDG.SelectedItem;
+                string date1 = DateTime.Now.Day + "." + DateTime.Now.Month + "." + DateTime.Now.Year;
+                DateTime newDate = DateTime.Now.AddDays(30);
+                string date2 = newDate.Day + "." + newDate.Month + "." + newDate.Year;
+                FbCommand command = new FbCommand("insert into WYPOZYCZENIA (ID_UZYTKOWNIK, ID_KSIAZKA, ID_PRACOWNIK, DATA_WYPOZYCZENIA, DATA_ODDANIA, CZY_ODDANE) " +
+                    "values (" + userID + ", " + tmp.ID_KSIAZKA + ", " + (int)Application.Current.Properties["workerID"] + ", '" + date1 + "', '" + date2 + "', 0)", connection);
+                int result = command.ExecuteNonQuery();
+                if(result > 0)
+                {
+                    MessageBox.Show("Wypożyczono książkę!", "Potwierdzenie", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Błąd!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Zaznacz pozycję!", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
