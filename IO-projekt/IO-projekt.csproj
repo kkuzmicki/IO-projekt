@@ -118,6 +118,9 @@
       <DependentUpon>RentABook.xaml</DependentUpon>
     </Compile>
     <Compile Include="Rental.cs" />
+    <Compile Include="RentalListWindow.xaml.cs">
+      <DependentUpon>RentalListWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RentWindow.xaml.cs">
       <DependentUpon>RentWindow.xaml</DependentUpon>
     </Compile>
@@ -180,6 +183,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RentABook.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RentalListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

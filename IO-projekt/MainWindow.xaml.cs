@@ -492,5 +492,11 @@ namespace IO_projekt
             this.Close();
             loginWindow.Show();
         }
+
+        private void btnRental_Click(object sender, RoutedEventArgs e)
+        {
+            RentalListWindow rentalWindow = new RentalListWindow();
+            rentalWindow.ShowDialog();
+        }
     }
 }
