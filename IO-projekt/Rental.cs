@@ -24,9 +24,9 @@ namespace IO_projekt
             TYTUL = tYTUL;
             AUTOR = aUTOR;
             DATA_WYPOZYCZENIA = dATA_WYPOZYCZENIA;
-            DATA_WYPOZYCZENIAtext = DATA_WYPOZYCZENIA.Day + "." + DATA_WYPOZYCZENIA.Month + '.' + DATA_WYPOZYCZENIA.Year;
+            DATA_WYPOZYCZENIAtext = DATA_WYPOZYCZENIA.Day.ToString("D2") + "." + DATA_WYPOZYCZENIA.Month.ToString("D2") + '.' + DATA_WYPOZYCZENIA.Year.ToString("D2");
             DATA_ODDANIA = dATA_ODDANIA;
-            DATA_ODDANIAtext = dATA_ODDANIA.Day + "." + DATA_ODDANIA.Month + '.' + DATA_ODDANIA.Year;
+            DATA_ODDANIAtext = dATA_ODDANIA.Day.ToString("D2") + "." + DATA_ODDANIA.Month.ToString("D2") + '.' + DATA_ODDANIA.Year.ToString("D2");
             PRACOWNIK = pRACOWNIK;
         }
     }
